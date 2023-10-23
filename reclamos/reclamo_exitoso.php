@@ -11,7 +11,7 @@ if (isset($_SESSION['es_admin']) && $_SESSION['es_admin']) {
 function mostrarBoton($esAdmin)
 {
   if ($esAdmin) {
-    echo '<a id="volver" href="../menu_admin.php">Volver al Menú ADMIN</a>';
+    echo '<a id="volver" href="../admin/admin.php">Volver al Menú ADMIN</a>';
   } else {
     echo '<a id="volver" href="../index.html">Volver al inicio</a>';
   }

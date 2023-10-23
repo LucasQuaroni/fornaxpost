@@ -282,6 +282,7 @@ button:hover {
   align-items: center;
   justify-content: center;
   color: black;
+  text-align: center;
 }
 
 #volver:hover {
