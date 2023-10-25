@@ -38,7 +38,7 @@ function mostrarBoton($esAdmin)
 <body>
   <div class="header">
     <div class="logo">
-      <a href="../index.html"><img src="../resources/logo-fornax-png.png" /></a>
+      <img src="../resources/logo-fornax-png.png" />
     </div>
   </div>
   <div class="container">
