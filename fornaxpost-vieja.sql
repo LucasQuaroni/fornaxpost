@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-10-2023 a las 04:28:50
--- Versión del servidor: 10.4.25-MariaDB
--- Versión de PHP: 8.1.10
+-- Tiempo de generación: 23-10-2023 a las 19:41:49
+-- Versión del servidor: 10.4.28-MariaDB
+-- Versión de PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -31,14 +31,13 @@ CREATE TABLE `artefactos` (
   `serial` varchar(15) NOT NULL,
   `modelo` varchar(30) DEFAULT NULL,
   `garantia` enum('S','N') DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `artefactos`
 --
 
 INSERT INTO `artefactos` (`serial`, `modelo`, `garantia`) VALUES
-('000009', 'campana FORNAX', 'S'),
 ('123456', 'FORNAX FIT 50', 'N'),
 ('456789', 'FORNAX RISTORANTE', 'N'),
 ('888888', 'FORNAX FREIDORA', 'N'),
@@ -60,7 +59,7 @@ CREATE TABLE `clientes` (
   `localidad` varchar(30) NOT NULL,
   `codpostal` varchar(15) NOT NULL,
   `obs` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `clientes`
@@ -68,7 +67,6 @@ CREATE TABLE `clientes` (
 
 INSERT INTO `clientes` (`dni`, `nombreYapellido`, `domicilio`, `telefono`, `email`, `provincia`, `localidad`, `codpostal`, `obs`) VALUES
 ('44232238', 'Marcelo Benitez', 'Balbo 4156', '3415690470', 'marcebenitez0607@gmail.com', 'Santa Fe', 'Rosario', '2000', 'cortada entre garibaldi y chuquisaca'),
-('44523085', 'Emma Procaccini', 'Avenida del huerto 1223', '3410000599', 'emmaproca@icloud.com', 'Santa Fe', 'Rosario', '2000', 'piso 5 - unidad 02'),
 ('44765283', 'Lucas Quaroni', 'Alvear 12', '3416956364', 'lucas.quaroni@gmail.com', 'Santa Fe', 'Rosario', '2000', 'Casa de portón negro, frente a la estación de servicio.');
 
 -- --------------------------------------------------------
@@ -81,7 +79,7 @@ CREATE TABLE `estados` (
   `idestado` varchar(3) NOT NULL,
   `nombre` varchar(15) DEFAULT NULL,
   `descripcion` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `estados`
@@ -105,7 +103,7 @@ CREATE TABLE `fletes` (
   `estado` enum('asignada','pendiente','completada','cancelada') DEFAULT NULL,
   `descripcion` varchar(50) DEFAULT NULL,
   `idreclamo` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -121,7 +119,7 @@ CREATE TABLE `reclamos` (
   `idadmin` int(11) DEFAULT NULL,
   `descripcion` varchar(100) NOT NULL,
   `idestado` varchar(3) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `reclamos`
@@ -130,10 +128,9 @@ CREATE TABLE `reclamos` (
 INSERT INTO `reclamos` (`id`, `dni`, `fecha`, `serial`, `idadmin`, `descripcion`, `idestado`) VALUES
 (75, '44765283', '2023-10-23', '123456', 3, 'Se me revento la puerta del horno', 'PEN'),
 (76, '44232238', '2023-10-23', '456789', 2, 'Las hornallas se me fundieron', 'ASI'),
-(77, '44765283', '2023-10-23', '123456', 1, 'Se me termino la garantía, puedo extenderla?', 'ASI'),
-(78, '44765283', '2023-10-23', '888888', 1, 'Pierde aceite', 'ASI'),
-(79, '44232238', '2023-10-23', '999999', 1, 'Las perillas se me descascaran', 'PEN'),
-(80, '44523085', '2023-10-23', '000009', 1, 'no funcionan las luces', 'PEN');
+(77, '44765283', '2023-10-23', '123456', 1, 'Se me termino la garantía, puedo extenderla?', 'PEN'),
+(78, '44765283', '2023-10-23', '888888', 1, 'Pierde aceite', 'PEN'),
+(79, '44232238', '2023-10-23', '999999', 1, 'Las perillas se me descascaran', 'PEN');
 
 -- --------------------------------------------------------
 
@@ -149,7 +146,7 @@ CREATE TABLE `servicios` (
   `estado` enum('asignada','pendiente','completada','cancelada') DEFAULT NULL,
   `descripcion` varchar(50) DEFAULT NULL,
   `idreclamo` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -163,7 +160,7 @@ CREATE TABLE `usuarios` (
   `contra` varchar(30) DEFAULT NULL,
   `nombreYapellido` varchar(60) DEFAULT NULL,
   `rol` enum('A','C','T') DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
@@ -242,7 +239,7 @@ ALTER TABLE `fletes`
 -- AUTO_INCREMENT de la tabla `reclamos`
 --
 ALTER TABLE `reclamos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- AUTO_INCREMENT de la tabla `servicios`
