@@ -20,7 +20,7 @@
         </div>
         <nav class="menu">
             <div class="nav-links">
-                <a href="../reclamos/cliente.html">Volver</a>
+                <a href="../reclamos/cliente.php">Volver</a>
             </div>
         </nav>
     </div>

@@ -18,7 +18,7 @@
                 <a href="../admin.php">Volver</a>
             </div>
             <div class="nav-links">
-                <a href="../../reclamos/cliente.html">Alta manual</a>
+                <a href="../../reclamos/cliente.php">Alta manual</a>
             </div>
         </nav>
     </div>
