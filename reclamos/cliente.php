@@ -41,11 +41,21 @@ if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] = true) {
         <input type="number" name="dni_cliente" required />
       </div>
       <div class="linea">
+        <p>Correo electrónico<span> *</span></p>
+        <input type="email" name="mail_cliente" required />
+      </div>
+      <div class="linea">
         <button type="submit" name="submit">Validar Cliente</button>
       </div>
     </form>
+    <?php
+    $error_message = isset($_SESSION['error_message']) ? $_SESSION['error_message'] : "";
+    unset($_SESSION['error_message']);
+    ?>
+    <div class="error-message">
+      <?php echo $error_message; ?>
+    </div>
   </div>
-
   <div class="footer">
     <div class="redes item-ft">
       <a href="https://www.instagram.com/fornax.cocinas/" target="_blank"><svg xmlns="http://www.w3.org/2000/svg"
