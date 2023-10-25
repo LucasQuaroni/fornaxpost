@@ -36,8 +36,8 @@
                     <th class="wider-cell">Fecha de alta</th>
                     <th>Serial del producto</th>
                     <th>Descripción del reclamo</th>
-                    <th>ID Admin</th>
-                    <th>ID Estado</th>
+                    <th>Responsable</th>
+                    <th>Estado</th>
                     <th></th>
                 </tr>
             </thead>
