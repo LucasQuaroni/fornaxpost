@@ -3,8 +3,8 @@ session_start();
 
 // Verificar si el usuario ha iniciado sesión
 if (!isset($_SESSION['usuario'])) {
-  header("Location: ../login/login.php");
-  exit;
+    header("Location: ../login/login.php");
+    exit;
 }
 ?>
 <!DOCTYPE html>
@@ -34,7 +34,7 @@ if (!isset($_SESSION['usuario'])) {
     <div class="table-container">
         <h1>Reclamos</h1>
         <div class="search-bar">
-            <input type="text" id="dniSearch" placeholder="Buscar por DNI">
+            <input type="text" id="dniSearch" placeholder="Buscar por DNI o Estado">
             <button class='boton' onclick="buscarReclamosPorDNI()">Buscar</button>
         </div>
         <table>
@@ -59,23 +59,25 @@ if (!isset($_SESSION['usuario'])) {
     </div>
     <script>
         function buscarReclamosPorDNI() {
-            const dni = document.getElementById('dniSearch').value.toLowerCase(); // Obtener DNI a buscar
+            const dniEstado = document.getElementById('dniSearch').value.toLowerCase(); // Obtener el valor de búsqueda
 
             // Obtener todas las filas de la tabla
             const filas = document.querySelectorAll('#reclamosTable tr');
 
-            // Iterar sobre las filas y ocultar/mostrar según el DNI
+            // Iterar sobre las filas y ocultar/mostrar según el DNI o el estado
             filas.forEach(function (fila) {
                 const columnaDNI = fila.cells[1].textContent.toLowerCase(); // Obtener DNI en la fila
+                const columnaEstado = fila.cells[6].textContent.toLowerCase(); // Obtener estado en la fila
 
-                // Si el DNI en la fila contiene el texto buscado, mostrar la fila; de lo contrario, ocultarla.
-                if (columnaDNI.includes(dni)) {
+                // Si el DNI o el estado en la fila contiene el texto buscado, mostrar la fila; de lo contrario, ocultarla.
+                if (columnaDNI.includes(dniEstado) || columnaEstado.includes(dniEstado)) {
                     fila.style.display = 'table-row'; // Mostrar la fila
                 } else {
                     fila.style.display = 'none'; // Ocultar la fila
                 }
             });
         }
+
 
         function actualizarReclamo(idReclamo) {
             // Recopila los valores de ID Admin e ID Estado desde la fila

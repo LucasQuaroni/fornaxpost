@@ -21,7 +21,7 @@
     </div>
     <div class="container">
         <p>Cliente no encontrado. Por favor, regístrese.</p>
-        <h2>Registro del cliente</h2>
+        <h2>Alta de nuevo cliente</h2>
         <form method="post" action="procesar_registro_cliente.php">
             <div class="linea">
                 <p>DNI del Cliente</p>

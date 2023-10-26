@@ -18,8 +18,27 @@ if ($result->num_rows > 0) {
         echo "<td>" . $row["fecha"] . "</td>";
         echo "<td>" . $row["serial"] . "</td>";
         echo "<td>" . $row["descripcion"] . "</td>";
-        echo "<td><input id='idadmin_" . $row["id"] . "' type='text' value='" . $row["idadmin"] . "'></td>";
-        echo "<td><input id='idestado_" . $row["id"] . "' type='text' value='" . $row["idestado"] . "'></td>";
+
+        // Consulta para obtener opciones de "RESPONSABLE" desde la base de datos
+        $sqlAdmins = "SELECT idusuario, usuario, rol FROM usuarios";
+        $resultAdmins = $conn->query($sqlAdmins);
+        echo "<td><select id='idadmin_" . $row["id"] . "'>";
+        while ($admin = $resultAdmins->fetch_assoc()) {
+            $selected = ($admin['idusuario'] == $row['idadmin']) ? 'selected' : '';
+            echo "<option value='" . $admin["idusuario"] . "' $selected>" . $admin["usuario"] . " - " . $admin["rol"] ."</option>";
+        }
+        echo "</select></td>";
+
+        // Consulta para obtener opciones de "ESTADO" desde la base de datos
+        $sqlEstados = "SELECT idestado, nombre FROM estados";
+        $resultEstados = $conn->query($sqlEstados);
+        echo "<td><select id='idestado_" . $row["id"] . "'>";
+        while ($estado = $resultEstados->fetch_assoc()) {
+            $selected = ($estado['idestado'] == $row['idestado']) ? 'selected' : '';
+            echo "<option value='" . $estado["nombre"] . "' $selected>" . $estado["nombre"] . "</option>";
+        }
+        echo "</select></td>";
+
         echo "<td><button class='boton' onclick='actualizarReclamo(" . $row["id"] . ")'>Actualizar</button></td>";
         echo "</tr>";
     }
