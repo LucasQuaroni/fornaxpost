@@ -69,14 +69,21 @@ if (!isset($_SESSION['usuario'])) {
                 const columnaDNI = fila.cells[1].textContent.toLowerCase(); // Obtener DNI en la fila
                 const columnaEstado = fila.cells[6].textContent.toLowerCase(); // Obtener estado en la fila
 
-                // Si el DNI o el estado en la fila contiene el texto buscado, mostrar la fila; de lo contrario, ocultarla.
-                if (columnaDNI.includes(dniEstado) || columnaEstado.includes(dniEstado)) {
+                // Obtener el valor del select del estado
+                const selectEstado = fila.querySelector(`#idestado_${fila.cells[0].textContent}`);
+
+                // Obtener el valor seleccionado en el select del estado
+                const estadoSeleccionado = selectEstado.options[selectEstado.selectedIndex].text.toLowerCase();
+
+                // Si el DNI o el estado en la fila o el estado seleccionado contiene el texto buscado, mostrar la fila; de lo contrario, ocultarla.
+                if (columnaDNI.includes(dniEstado) || columnaEstado.includes(dniEstado) || estadoSeleccionado.includes(dniEstado)) {
                     fila.style.display = 'table-row'; // Mostrar la fila
                 } else {
                     fila.style.display = 'none'; // Ocultar la fila
                 }
             });
         }
+
 
 
         function actualizarReclamo(idReclamo) {

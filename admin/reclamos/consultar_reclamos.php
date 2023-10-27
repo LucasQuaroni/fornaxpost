@@ -25,7 +25,7 @@ if ($result->num_rows > 0) {
         echo "<td><select id='idadmin_" . $row["id"] . "'>";
         while ($admin = $resultAdmins->fetch_assoc()) {
             $selected = ($admin['idusuario'] == $row['idadmin']) ? 'selected' : '';
-            echo "<option value='" . $admin["idusuario"] . "' $selected>" . $admin["usuario"] . " - " . $admin["rol"] ."</option>";
+            echo "<option value='" . $admin["idusuario"] . "' $selected>" . $admin["usuario"] . " - " . $admin["rol"] . "</option>";
         }
         echo "</select></td>";
 
@@ -35,7 +35,7 @@ if ($result->num_rows > 0) {
         echo "<td><select id='idestado_" . $row["id"] . "'>";
         while ($estado = $resultEstados->fetch_assoc()) {
             $selected = ($estado['idestado'] == $row['idestado']) ? 'selected' : '';
-            echo "<option value='" . $estado["nombre"] . "' $selected>" . $estado["nombre"] . "</option>";
+            echo "<option value='" . $estado["idestado"] . "' $selected>" . $estado["nombre"] . "</option>";
         }
         echo "</select></td>";
 
