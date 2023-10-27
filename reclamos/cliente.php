@@ -38,7 +38,7 @@ if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] = true) {
     <form method="post" action="procesar_validacion.php">
       <div class="linea">
         <p>Número de DNI<span> *</span></p>
-        <input type="number" name="dni_cliente" required />
+        <input type="number" name="dni_cliente" required autofocus/>
       </div>
       <div class="linea">
         <p>Correo electrónico<span> *</span></p>

@@ -31,7 +31,7 @@
       <form name="myForm" class="login" action="autenticarLogin.php" method="POST">
         <div class="linea">
           <p>Usuario</p>
-          <input type="text" id="user" name="user" />
+          <input type="text" id="user" name="user" autofocus/>
         </div>
         <div class="linea">
           <p>Contraseña</p>

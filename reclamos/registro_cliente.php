@@ -29,7 +29,7 @@
             </div>
             <div class="linea">
                 <p>Nombre y apellido<span> *</span></p>
-                <input type="text" name="nombre" required />
+                <input type="text" name="nombre" required autofocus/>
             </div>
             <div class="linea">
                 <p>Domicilio<span> *</span></p>

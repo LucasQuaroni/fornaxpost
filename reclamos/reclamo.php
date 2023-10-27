@@ -42,7 +42,7 @@
             </div>
             <div class="linea">
                 <p>Modelo de <br>artefacto<span> *</span></p>
-                <input type="text" name="modelo" required />
+                <input type="text" name="modelo" required autofocus/>
             </div>
             <div class="linea">
                 <p>Numero de serie<span> *</span></p>
