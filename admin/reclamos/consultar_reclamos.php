@@ -32,10 +32,10 @@ if ($result->num_rows > 0) {
         // Consulta para obtener opciones de "ESTADO" desde la base de datos
         $sqlEstados = "SELECT idestado, nombre FROM estados";
         $resultEstados = $conn->query($sqlEstados);
-        echo "<td><select id='idestado_" . $row["id"] . "'>";
+        echo "<td><select id='idestado_" . $row["id"] . "' value='prueba'>";
         while ($estado = $resultEstados->fetch_assoc()) {
             $selected = ($estado['idestado'] == $row['idestado']) ? 'selected' : '';
-            echo "<option value='" . $estado["idestado"] . "' $selected>" . $estado["nombre"] . "</option>";
+            echo "<option value='" . $estado["nombre"] . "' $selected>" . $estado["nombre"] . "</option>";
         }
         echo "</select></td>";
 
