@@ -12,14 +12,6 @@ $conn = new mysqli("localhost", "root", "", "fornaxpost");
 if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 }
-
-// Realiza una consulta para obtener los reclamos de la base de datos
-$sql = "SELECT r.id, r.dni, r.fecha, r.serial, r.descripcion, e.idestado, e.nombre AS estado, e.descripcion AS estado_descripcion, e.responsable AS estado_responsable 
-        FROM reclamos AS r
-        JOIN estados AS e ON r.idestado = e.idestado
-        ORDER BY e.responsable";
-
-$result = $conn->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -49,15 +41,15 @@ $result = $conn->query($sql);
     <div class="table-container">
         <h1>Reclamos</h1>
         <div class="search-bar">
-            <input type="text" id="dniSearch" placeholder="Buscar por DNI o Estado">
-            <button class='boton' onclick="buscarReclamosPorDNI()">Buscar</button>
+            <input type="text" id="searchInput" placeholder="Buscar por DNI o Estado" >
+            <button class='boton' onclick="buscarReclamos()">Buscar</button>
         </div>
         <table>
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>DNI del denunciante</th>
-                    <th class="wider-cell">Fecha de alta</th>
+                    <th>Fecha de alta</th>
                     <th>Serial del producto</th>
                     <th>Descripción del reclamo</th>
                     <th>Responsable</th>
@@ -66,25 +58,7 @@ $result = $conn->query($sql);
                 </tr>
             </thead>
             <tbody id='reclamosTable'>
-                <?php
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        echo "<tr>";
-                        echo "<td>" . $row["id"] . "</td>";
-                        echo "<td class='cliente-link' data-dni='" . $row["dni"] . "'>" . $row["dni"] . "</td>";
-                        echo "<td>" . $row["fecha"] . "</td>";
-                        echo "<td class='artefacto-link' data-serial='" . $row["serial"] . "'>" . $row["serial"] . "</td>";
-                        echo "<td>" . $row["descripcion"] . "</td>";
-                        echo "<td>" . $row["estado_responsable"] . "</td>";
-                        echo "<td>" . $row["estado"] . "</td>";
-                        echo "<td><button class='boton' onclick='actualizarReclamo(" . $row["id"] . ")'>Actualizar</button></td>";
-                        echo "</tr>";
-                    }
-                } else {
-                    echo "<tr><td colspan='9'>No hay reclamos disponibles.</td></tr>";
-                }
-                $conn->close();
-                ?>
+                <?php include 'consultar_reclamos.php'; ?>
             </tbody>
         </table>
     </div>
@@ -97,14 +71,13 @@ $result = $conn->query($sql);
         </div>
     </div>
     <script>
-        function buscarReclamosPorDNI() {
-            const dniEstado = document.getElementById('dniSearch').value.toLowerCase();
+        function buscarReclamos() {
+            const searchValue = document.getElementById('searchInput').value.toLowerCase();
             const filas = document.querySelectorAll('#reclamosTable tr');
             filas.forEach(function (fila) {
-                const columnaDNI = fila.querySelector('.cliente-link').textContent.toLowerCase();
-                const columnaSerial = fila.querySelector('.artefacto-link').textContent.toLowerCase();
-                const columnaEstado = fila.cells[6].textContent.toLowerCase();
-                if (columnaDNI.includes(dniEstado) || columnaSerial.includes(dniEstado) || columnaEstado.includes(dniEstado)) {
+                const columnaDNI = fila.querySelector('td:nth-child(2)').textContent.toLowerCase();
+                const columnaEstado = fila.querySelector('td:nth-child(7)').textContent.toLowerCase();
+                if (columnaDNI.includes(searchValue) || columnaEstado.includes(searchValue)) {
                     fila.style.display = 'table-row';
                 } else {
                     fila.style.display = 'none';

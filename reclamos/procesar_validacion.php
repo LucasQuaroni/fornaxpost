@@ -26,8 +26,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["dni_cliente"]) && isse
             // Validar que el cliente no tenga un reclamo pendiente
             $sql = "SELECT * FROM reclamos WHERE dni = '$dni_cliente' AND idestado != 'FIN'";
             $result = $conn->query($sql);
-            if ($result->num_rows > 3) {
-                // El cliente tiene un reclamo pendiente
+            if ($result->num_rows >= 3) {
+                // El cliente tiene tres o más reclamos pendientes
                 $_SESSION['error_message'] = "El cliente ya tiene tres reclamos pendientes. Por favor, espere a que se resuelvan.";
                 header("Location: cliente.php");
                 exit();

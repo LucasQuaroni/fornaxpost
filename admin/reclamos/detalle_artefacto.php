@@ -6,19 +6,12 @@ if (isset($_GET['serial'])) {
     $serial = $_GET['serial'];
 
     // Realiza una consulta para obtener los detalles del artefacto según el número de serie.
-    // Reemplaza esta parte con tu propia lógica de consulta.
     $sql = "SELECT * FROM artefactos WHERE serial = '$serial'";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
         $artefacto = $result->fetch_assoc();
-        // Muestra los detalles del artefacto.
-    } else {
-        // El artefacto no existe o se produjo un error.
     }
-} else {
-    // No se proporcionó un número de serie en la URL.
-    // Puedes mostrar un mensaje de error o redirigir a otra página.
 }
 ?>
 
@@ -42,11 +35,7 @@ if (isset($_GET['serial'])) {
             <?php echo $artefacto['modelo']; ?>
         </p>
         <p><b>Garantía:</b>
-            <?php if ($artefacto['garantia'] == 'S') {
-                echo 'Sí';
-            } else {
-                echo 'No';
-            } ?>
+            <?php echo ($artefacto['garantia'] === 'S') ? 'Sí' : 'No'; ?>
         </p>
     <?php else: ?>
         <p>El artefacto no existe o se produjo un error al cargar los detalles.</p>
