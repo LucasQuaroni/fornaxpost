@@ -1,5 +1,4 @@
 <?php
-
 $conn = new mysqli("localhost", "root", "", "fornaxpost");
 
 if ($conn->connect_error) {
@@ -7,7 +6,12 @@ if ($conn->connect_error) {
 }
 
 // Realiza una consulta para obtener los reclamos de la base de datos
-$sql = "SELECT * FROM reclamos ORDER BY idadmin";
+$sql = "SELECT r.id, r.dni, r.fecha, r.serial, r.descripcion, r.idestado, e.responsable, e.nombre AS estado, e.descripcion AS estado_desc, u.nombreYapellido AS responsable_nombre
+        FROM reclamos r
+        LEFT JOIN estados e ON r.idestado = e.idestado
+        LEFT JOIN usuarios u ON e.responsable = u.idusuario
+        ORDER BY r.id";
+
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
@@ -18,26 +22,8 @@ if ($result->num_rows > 0) {
         echo "<td>" . $row["fecha"] . "</td>";
         echo "<td>" . $row["serial"] . "</td>";
         echo "<td>" . $row["descripcion"] . "</td>";
-
-        // Consulta para obtener opciones de "RESPONSABLE" desde la base de datos
-        $sqlAdmins = "SELECT idusuario, usuario, rol FROM usuarios";
-        $resultAdmins = $conn->query($sqlAdmins);
-        echo "<td><select id='idadmin_" . $row["id"] . "'>";
-        while ($admin = $resultAdmins->fetch_assoc()) {
-            $selected = ($admin['idusuario'] == $row['idadmin']) ? 'selected' : '';
-            echo "<option value='" . $admin["idusuario"] . "' $selected>" . $admin["usuario"] . " - " . $admin["rol"] . "</option>";
-        }
-        echo "</select></td>";
-
-        // Consulta para obtener opciones de "ESTADO" desde la base de datos
-        $sqlEstados = "SELECT idestado, nombre FROM estados";
-        $resultEstados = $conn->query($sqlEstados);
-        echo "<td><select id='idestado_" . $row["id"] . "' value='prueba'>";
-        while ($estado = $resultEstados->fetch_assoc()) {
-            $selected = ($estado['idestado'] == $row['idestado']) ? 'selected' : '';
-            echo "<option value='" . $estado["nombre"] . "' $selected>" . $estado["nombre"] . "</option>";
-        }
-        echo "</select></td>";
+        echo "<td>" . $row["responsable_nombre"] . "</td>";
+        echo "<td>" . $row["estado"] . "</td>";
 
         echo "<td><button class='boton' onclick='actualizarReclamo(" . $row["id"] . ")'>Actualizar</button></td>";
         echo "</tr>";

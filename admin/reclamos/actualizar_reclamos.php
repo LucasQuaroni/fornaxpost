@@ -1,7 +1,6 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["idadmin"]) && isset($_POST["idestado"]) && isset($_POST["reclamo_id"])) {
-    $idadmin = $_POST["idadmin"];
-    $idestado = $_POST["idestado"];
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["responsable"]) && isset($_POST["reclamo_id"])) {
+    $responsable = $_POST["responsable"];
     $reclamo_id = $_POST["reclamo_id"];
 
     // Realiza las actualizaciones en la base de datos
@@ -11,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["idadmin"]) && isset($_
         die("Conexión fallida: " . $conn->connect_error);
     }
 
-    $sql = "UPDATE reclamos SET idadmin = '$idadmin', idestado = '$idestado' WHERE id = $reclamo_id";
+    $sql = "UPDATE reclamos SET responsable = '$responsable' WHERE id = $reclamo_id";
 
     if ($conn->query($sql) === TRUE) {
         // Actualización exitosa

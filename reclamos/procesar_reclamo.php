@@ -49,8 +49,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["dni_cliente"]) || iss
     $fecha_reclamo = date("Y-m-d H:i:s");
 
     // Insertar los datos del reclamo en la tabla de reclamos
-    $sql_insert_reclamo = "INSERT INTO reclamos (dni, fecha, serial, idadmin, descripcion, idestado)
-                          VALUES ('$dni_cliente', '$fecha_reclamo', '$numero_serie', 1, '$problema_producto', 'PEN')";
+    $sql_insert_reclamo = "INSERT INTO reclamos (dni, fecha, serial, descripcion, idestado)
+                          VALUES ('$dni_cliente', '$fecha_reclamo', '$numero_serie', '$problema_producto', 'PEN')";
 
     if ($conn->query($sql_insert_reclamo) === TRUE) {
         // Los datos del reclamo se han registrado con éxito en la base de datos

@@ -6,7 +6,22 @@ if (!isset($_SESSION['usuario'])) {
     header("Location: ../login/login.php");
     exit;
 }
+
+$conn = new mysqli("localhost", "root", "", "fornaxpost");
+
+if ($conn->connect_error) {
+    die("Conexión fallida: " . $conn->connect_error);
+}
+
+// Realiza una consulta para obtener los reclamos de la base de datos
+$sql = "SELECT r.id, r.dni, r.fecha, r.serial, r.descripcion, e.idestado, e.nombre AS estado, e.descripcion AS estado_descripcion, e.responsable AS estado_responsable 
+        FROM reclamos AS r
+        JOIN estados AS e ON r.idestado = e.idestado
+        ORDER BY e.responsable";
+
+$result = $conn->query($sql);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,79 +67,135 @@ if (!isset($_SESSION['usuario'])) {
             </thead>
             <tbody id='reclamosTable'>
                 <?php
-                include('consultar_reclamos.php');
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<tr>";
+                        echo "<td>" . $row["id"] . "</td>";
+                        echo "<td class='cliente-link' data-dni='" . $row["dni"] . "'>" . $row["dni"] . "</td>";
+                        echo "<td>" . $row["fecha"] . "</td>";
+                        echo "<td class='artefacto-link' data-serial='" . $row["serial"] . "'>" . $row["serial"] . "</td>";
+                        echo "<td>" . $row["descripcion"] . "</td>";
+                        echo "<td>" . $row["estado_responsable"] . "</td>";
+                        echo "<td>" . $row["estado"] . "</td>";
+                        echo "<td><button class='boton' onclick='actualizarReclamo(" . $row["id"] . ")'>Actualizar</button></td>";
+                        echo "</tr>";
+                    }
+                } else {
+                    echo "<tr><td colspan='9'>No hay reclamos disponibles.</td></tr>";
+                }
+                $conn->close();
                 ?>
             </tbody>
         </table>
     </div>
+    <div id="cliente-modal" class="modal">
+        <div class="modal-content">
+        </div>
+    </div>
+    <div id="artefacto-modal" class="modal">
+        <div class="modal-content">
+        </div>
+    </div>
     <script>
         function buscarReclamosPorDNI() {
-            const dniEstado = document.getElementById('dniSearch').value.toLowerCase(); // Obtener el valor de búsqueda
-
-            // Obtener todas las filas de la tabla
+            const dniEstado = document.getElementById('dniSearch').value.toLowerCase();
             const filas = document.querySelectorAll('#reclamosTable tr');
-
-            // Iterar sobre las filas y ocultar/mostrar según el DNI o el estado
             filas.forEach(function (fila) {
-                const columnaDNI = fila.cells[1].textContent.toLowerCase(); // Obtener DNI en la fila
-
-                // Obtener el valor del select del estado
-                const selectEstado = fila.querySelector(`#idestado_${fila.cells[0].textContent}`);
-                console.log(selectEstado.value)
-                // Obtener el valor seleccionado en el select del estado
-                const estadoSeleccionado = selectEstado.value;
-
-                // Si el DNI o el estado en la fila o el estado seleccionado contiene el texto buscado, mostrar la fila; de lo contrario, ocultarla.
-                if (columnaDNI.includes(dniEstado) || estadoSeleccionado.includes(dniEstado)) {
-                    fila.style.display = 'table-row'; // Mostrar la fila
+                const columnaDNI = fila.querySelector('.cliente-link').textContent.toLowerCase();
+                const columnaSerial = fila.querySelector('.artefacto-link').textContent.toLowerCase();
+                const columnaEstado = fila.cells[6].textContent.toLowerCase();
+                if (columnaDNI.includes(dniEstado) || columnaSerial.includes(dniEstado) || columnaEstado.includes(dniEstado)) {
+                    fila.style.display = 'table-row';
                 } else {
-                    fila.style.display = 'none'; // Ocultar la fila
+                    fila.style.display = 'none';
                 }
             });
         }
 
-
-
         function actualizarReclamo(idReclamo) {
-            // Recopila los valores de ID Admin e ID Estado desde la fila
-            const idAdmin = document.getElementById(`idadmin_${idReclamo}`).value;
             const idEstado = document.getElementById(`idestado_${idReclamo}`).value;
-
-            // Verifica si los campos están completos
-            if (!idAdmin || !idEstado) {
-                alert('Por favor, complete ambos campos.');
+            if (!idEstado) {
+                alert('Por favor, complete el campo de Estado.');
                 return;
             }
-
-            // Crea un formulario y agrega los campos
             const form = document.createElement('form');
             form.method = 'POST';
             form.action = 'actualizar_reclamos.php';
-
-            const idAdminInput = document.createElement('input');
-            idAdminInput.type = 'hidden';
-            idAdminInput.name = 'idadmin';
-            idAdminInput.value = idAdmin;
-
             const idEstadoInput = document.createElement('input');
             idEstadoInput.type = 'hidden';
             idEstadoInput.name = 'idestado';
             idEstadoInput.value = idEstado;
-
             const reclamoIdInput = document.createElement('input');
             reclamoIdInput.type = 'hidden';
             reclamoIdInput.name = 'reclamo_id';
             reclamoIdInput.value = idReclamo;
-
-            form.appendChild(idAdminInput);
             form.appendChild(idEstadoInput);
             form.appendChild(reclamoIdInput);
-
-            // Agrega el formulario al cuerpo del documento y envíalo
             document.body.appendChild(form);
             form.submit();
         }
 
+        // JavaScript para abrir el modal al hacer clic en un DNI de cliente
+        const clienteLinks = document.querySelectorAll('.cliente-link');
+        const clienteModal = document.getElementById('cliente-modal');
+
+        clienteLinks.forEach((link) => {
+            link.addEventListener('click', function () {
+                const dni = this.getAttribute('data-dni');
+
+                // Llama a detalle_cliente.php con el parámetro DNI
+                fetch(`detalle_cliente.php?dni=${dni}`)
+                    .then((response) => response.text())
+                    .then((data) => {
+                        // Actualiza el contenido del modal con los detalles del cliente
+                        const modalContent = clienteModal.querySelector('.modal-content');
+                        modalContent.innerHTML = '<span class="close-modal" onclick="cerrarModal(\'cliente-modal\')">&times;</span>' + data;
+
+                        // Muestra el modal
+                        clienteModal.style.display = 'block';
+                    })
+                    .catch((error) => {
+                        console.error('Error al cargar los detalles del cliente:', error);
+                    });
+            });
+        });
+
+        // JavaScript para abrir el modal al hacer clic en el número de serie del artefacto
+        const artefactoLinks = document.querySelectorAll('.artefacto-link');
+        const artefactoModal = document.getElementById('artefacto-modal');
+
+        artefactoLinks.forEach((link) => {
+            link.addEventListener('click', function () {
+                const serial = this.getAttribute('data-serial');
+
+                // Llama a detalle_artefacto.php con el parámetro Serial
+                fetch(`detalle_artefacto.php?serial=${serial}`)
+                    .then((response) => response.text())
+                    .then((data) => {
+                        // Actualiza el contenido del modal con los detalles del artefacto
+                        const modalContent = artefactoModal.querySelector('.modal-content');
+                        modalContent.innerHTML = '<span class="close-modal" onclick="cerrarModal(\'artefacto-modal\')">&times;</span>' + data;
+
+                        // Muestra el modal
+                        artefactoModal.style.display = 'block';
+                    })
+                    .catch((error) => {
+                        console.error('Error al cargar los detalles del artefacto:', error);
+                    });
+            });
+        });
+
+        function cerrarModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.style.display = 'none';
+        }
+
+        // JavaScript para cerrar el modal al hacer clic fuera del modal
+        window.addEventListener('click', function (event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        });
     </script>
 </body>
 

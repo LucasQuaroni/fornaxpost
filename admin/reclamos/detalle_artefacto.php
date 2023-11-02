@@ -1,0 +1,56 @@
+<?php
+$conn = new mysqli("localhost", "root", "", "fornaxpost");
+
+// Verifica si se proporcionó un número de serie en la URL.
+if (isset($_GET['serial'])) {
+    $serial = $_GET['serial'];
+
+    // Realiza una consulta para obtener los detalles del artefacto según el número de serie.
+    // Reemplaza esta parte con tu propia lógica de consulta.
+    $sql = "SELECT * FROM artefactos WHERE serial = '$serial'";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        $artefacto = $result->fetch_assoc();
+        // Muestra los detalles del artefacto.
+    } else {
+        // El artefacto no existe o se produjo un error.
+    }
+} else {
+    // No se proporcionó un número de serie en la URL.
+    // Puedes mostrar un mensaje de error o redirigir a otra página.
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles del Artefacto</title>
+    <!-- Agrega tus estilos CSS aquí -->
+</head>
+
+<body>
+    <h1>Detalles del Artefacto</h1>
+    <?php if (isset($artefacto)): ?>
+        <p><b>Número de Serie:</b>
+            <?php echo $artefacto['serial']; ?>
+        </p>
+        <p><b>Modelo:</b>
+            <?php echo $artefacto['modelo']; ?>
+        </p>
+        <p><b>Garantía:</b>
+            <?php if ($artefacto['garantia'] == 'S') {
+                echo 'Sí';
+            } else {
+                echo 'No';
+            } ?>
+        </p>
+    <?php else: ?>
+        <p>El artefacto no existe o se produjo un error al cargar los detalles.</p>
+    <?php endif; ?>
+</body>
+
+</html>
