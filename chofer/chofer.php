@@ -6,6 +6,15 @@ if (!isset($_SESSION['usuario'])) {
   header("Location: ../login/login.php");
   exit;
 }
+
+// Incluir el archivo de funciones
+include("funciones.php");
+
+// Obtener el ID del chofer desde la sesión u otras fuentes
+$choferID = $_SESSION['idusuario'];
+
+// Llamar a la función para obtener órdenes de flete
+$ordenesFlete = obtenerOrdenesFleteParaChofer($choferID);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +23,7 @@ if (!isset($_SESSION['usuario'])) {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Servicio de PostVenta - FORNAX S.R.L</title>
-  <link rel="stylesheet" href="../estilos.css" />
+  <link rel="stylesheet" href="styles.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -25,7 +34,7 @@ if (!isset($_SESSION['usuario'])) {
 <body>
   <div class="header">
     <div class="logo">
-      ><img src="../resources/logo-fornax-png.png" />
+      <img src="../resources/logo-fornax-png.png" />
     </div>
     <nav class="menu">
       <div class="nav-links">
@@ -35,6 +44,26 @@ if (!isset($_SESSION['usuario'])) {
   </div>
   <div class="container">
     <p class="desc">ORDENES DE FLETE</p>
+    <div class="ordenes">
+      <table>
+        <thead>
+          <tr>
+            <th>ID de Orden</th>
+            <th>Dirección</th>
+            <th>Descripción</th>
+            <th>Tipo</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php
+          $ordenesFlete = obtenerOrdenesFleteParaChofer($choferID);
+          $cuerpoTabla = generarCuerpoTablaOrdenes($ordenesFlete);
+          echo $cuerpoTabla;
+          ?>
+        </tbody>
+      </table>
+    </div>
   </div>
   <script src="chofer-script.js"></script>
 </body>
