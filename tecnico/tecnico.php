@@ -6,6 +6,15 @@ if (!isset($_SESSION['usuario'])) {
   header("Location: ../login/login.php");
   exit;
 }
+
+// Incluir el archivo de funciones
+include("funciones.php");
+
+// Obtener el ID del chofer desde la sesión u otras fuentes
+$tecnicoID = $_SESSION['idusuario'];
+
+// Llamar a la función para obtener órdenes de flete
+$ordenesFlete = obtenerOrdenesServicioParaTecnico($tecnicoID);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +23,7 @@ if (!isset($_SESSION['usuario'])) {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Servicio de PostVenta - FORNAX S.R.L</title>
-  <link rel="stylesheet" href="../estilos.css" />
+  <link rel="stylesheet" href="styles.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -34,9 +43,29 @@ if (!isset($_SESSION['usuario'])) {
     </nav>
   </div>
   <div class="container">
-    <p class="desc">Ordenes de servicio técnico</p>
+    <p class="desc">ORDENES DE SERVICIO TÉCNICO</p>
+    <div class="ordenes">
+      <table>
+        <thead>
+          <tr>
+            <th>ID de Orden</th>
+            <th>Tipo</th>
+            <th>Direccion</th>
+            <th>Descripción</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php
+          $ordenesFlete = obtenerOrdenesServicioParaTecnico($tecnicoID);
+          $cuerpoTabla = generarCuerpoTablaOrdenes($ordenesFlete);
+          echo $cuerpoTabla;
+          ?>
+        </tbody>
+      </table>
+    </div>
   </div>
-  <script src="chofer-script.js"></script>
+  <script src="tecnico-script.js"></script>
 </body>
 
 </html>
