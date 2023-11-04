@@ -17,7 +17,7 @@ $tecnicoID = $_SESSION['idusuario'];
 $ordenesFlete = obtenerOrdenesServicioParaTecnico($tecnicoID);
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="UTF-8" />

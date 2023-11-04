@@ -10,7 +10,7 @@ if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] = true) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="UTF-8" />

@@ -19,9 +19,9 @@ if ($usuario != "" && $contra != "") {
         $idusuario = $datos_usuario['idusuario'];
 
         if ($rol == 'A') {
+            $_SESSION['idusuario'] = $idusuario; // Almacena el ID del usuario en la sesión
             $_SESSION['usuario'] = $usuario;
             $_SESSION['es_admin'] = true;
-            $_SESSION['idusuario'] = $idusuario; // Almacena el ID del usuario en la sesión
             header("Location: ../admin/admin.php");
             exit;
         } elseif ($rol == 'C') {
@@ -34,11 +34,11 @@ if ($usuario != "" && $contra != "") {
             $_SESSION['idusuario'] = $idusuario; // Almacena el ID del usuario en la sesión
             header("Location: ../tecnico/tecnico.php");
             exit;
-        } else {
-            $_SESSION['error_message'] = "Error en la autenticación. Rol desconocido";
-            header("Location: ../login/login.php");
-            exit;
         }
+    } else {
+        $_SESSION['error_message'] = "Credenciales incorrectas. Intente nuevamente";
+        header("Location: ../login/login.php");
+        exit;
     }
 } else {
     $_SESSION['error_message'] = "Los campos de Usuario y Contraseña no pueden estar vacíos";
