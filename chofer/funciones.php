@@ -35,7 +35,11 @@ function generarCuerpoTablaOrdenes($ordenes)
         $cuerpoTabla .= "<td>" . $orden['idflete'] . "</td>";
         $cuerpoTabla .= "<td>" . $orden['direccion'] . "</td>";
         $cuerpoTabla .= "<td>" . $orden['descripcion'] . "</td>";
-        $cuerpoTabla .= "<td>" . $orden['tipo'] . "</td>";
+        if ($orden["tipo"] == 'R') {
+            $cuerpoTabla .= "<td>Retirar</td>";
+        } elseif ($orden["tipo"] == 'D') {
+            $cuerpoTabla .= "<td>Llevar</td>";
+        }
         $cuerpoTabla .= "<td>" . $orden['estado'] . "</td>";
         $cuerpoTabla .= "</tr>";
     }

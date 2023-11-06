@@ -53,6 +53,10 @@
                 <input type="checkbox" name="garantia" />
             </div>
             <div class="linea">
+                <p>Vendedor de su producto:</p>
+                <input type="text" name="vendedor">
+            </div>
+            <div class="linea">
                 <p>Problema que presenta el producto<span> *</span></p>
                 <textarea name="desc" required></textarea>
             </div>

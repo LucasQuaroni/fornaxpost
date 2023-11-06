@@ -33,7 +33,11 @@ function generarCuerpoTablaOrdenes($ordenes)
     foreach ($ordenes as $orden) {
         $cuerpoTabla .= "<tr>";
         $cuerpoTabla .= "<td>" . $orden['idserviciotecnico'] . "</td>";
-        $cuerpoTabla .= "<td>" . $orden['tipo'] . "</td>";
+        if ($orden["tipo"] == 'F') {
+            $cuerpoTabla .= "<td>" . 'En fabrica' . "</td>";
+        } elseif ($orden["tipo"] == 'D') {
+            $cuerpoTabla .= "<td>" . 'A domicilio' . "</td>";
+        }
         $cuerpoTabla .= "<td>" . $orden['direccion'] . "</td>";
         $cuerpoTabla .= "<td>" . $orden['descripcion'] . "</td>";
         $cuerpoTabla .= "<td>" . $orden['estado'] . "</td>";

@@ -22,7 +22,6 @@ if (isset($_GET['serial'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalles del Artefacto</title>
-    <!-- Agrega tus estilos CSS aquí -->
 </head>
 
 <body>
@@ -37,6 +36,8 @@ if (isset($_GET['serial'])) {
         <p><b>Garantía:</b>
             <?php echo ($artefacto['garantia'] === 'S') ? 'Sí' : 'No'; ?>
         </p>
+        <p><b>Vendedor:</b>
+            <?php echo $artefacto['vendedor']; ?>
     <?php else: ?>
         <p>El artefacto no existe o se produjo un error al cargar los detalles.</p>
     <?php endif; ?>

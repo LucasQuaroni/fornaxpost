@@ -13,6 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["dni_cliente"]) || iss
     $modelo_artefacto = $_POST["modelo"];
     $numero_serie = $_POST["serial"];
     $en_garantia = isset($_POST["garantia"]) ? 'S' : 'N';
+    $vendedor = $_POST["vendedor"];
     $problema_producto = $_POST["desc"];
 
     // Verificar si el artefacto ya existe en la base de datos
@@ -35,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["dni_cliente"]) || iss
         }
     } else {
         // El artefacto no existe, insertarlo en la base de datos
-        $sql_insert_artefacto = "INSERT INTO artefactos (serial, modelo, garantia) VALUES ('$numero_serie', '$modelo_artefacto', '$en_garantia')";
+        $sql_insert_artefacto = "INSERT INTO artefactos (serial, modelo, garantia, vendedor) VALUES ('$numero_serie', '$modelo_artefacto', '$en_garantia', '$vendedor')";
         if ($conn->query($sql_insert_artefacto) === TRUE) {
             // Obtener el id del artefacto recién insertado
             $id_artefacto = $conn->insert_id;
