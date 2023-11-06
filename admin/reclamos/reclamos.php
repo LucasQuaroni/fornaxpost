@@ -73,38 +73,28 @@ if ($conn->connect_error) {
     <?php include 'modal.php'; ?>
     <script>
         // JavaScript para abrir el modal al hacer clic en el botón "Actualizar"
-        // JavaScript para abrir el modal al hacer clic en el botón "Actualizar"
-        function actualizarReclamo(reclamoId, dni, fecha, serial, descripcion, estado, responsable) {
+        function actualizarReclamo(reclamoId) {
             // Abrir el modal de actualización
             const modalActualizar = document.getElementById('modal-actualizar');
             modalActualizar.style.display = 'block';
 
-            // Asignar el ID del reclamo al campo oculto en el formulario
-            document.getElementById('reclamoId').value = reclamoId;
+            // Obtener los elementos de celda de la fila del reclamo seleccionado
+            const filaReclamo = document.querySelector(`#reclamosTable tr[data-id="${reclamoId}"]`);
+            const dni = filaReclamo.getAttribute('data-dni');
+            const fecha = filaReclamo.getAttribute('data-fecha');
+            const serial = filaReclamo.getAttribute('data-serial');
+            const descripcion = filaReclamo.getAttribute('data-descripcion');
+            const estado = filaReclamo.getAttribute('data-estado');
+            const responsable = filaReclamo.getAttribute('data-responsable');
 
-            // Rellenar los campos con los datos existentes del reclamo
+            // Llenar los campos del modal con los datos obtenidos
+            document.getElementById('reclamoId').value = reclamoId;
             document.getElementById('dni').value = dni;
             document.getElementById('fecha').value = fecha;
             document.getElementById('serial').value = serial;
             document.getElementById('descripcion').value = descripcion;
-
-            // En el campo "estado," selecciona la opción correspondiente
-            const estadoSelect = document.getElementById('estado');
-            for (let option of estadoSelect.options) {
-                if (option.value === estado) {
-                    option.selected = true;
-                    break;
-                }
-            }
-
-            // En el campo "responsable," selecciona la opción correspondiente
-            const responsableSelect = document.getElementById('responsable');
-            for (let option of responsableSelect.options) {
-                if (option.value === responsable) {
-                    option.selected = true;
-                    break;
-                }
-            }
+            document.getElementById('estado').value = estado;
+            document.getElementById('responsable').value = responsable;
         }
 
 

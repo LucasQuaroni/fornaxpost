@@ -5,7 +5,7 @@
         <form id="formulario-actualizar" method="POST" action="guardar_reclamo.php">
             <div class="linea">
                 <p>DNI del denunciante:</p>
-                <input type="number">
+                <input type="number" name="dni" id="dni">
             </div>
             <div class="linea">
                 <p>Fecha de alta:</p>
@@ -21,11 +21,24 @@
             </div>
             <div class="linea">
                 <p>Estado:</p>
-                <select name="estado" id="estado"></select>
+                <select name="estado" id="estado">
+                    <?php foreach ($estados as $estado) { ?>
+                        <option value="<?php echo $estado['idestado']; ?>">
+                            <?php echo $estado['nombre']; ?>
+                        </option>
+                    <?php } ?>
+                </select>
             </div>
+
             <div class="linea">
                 <p>Responsable:</p>
-                <select name="responsable" id="responsable"></select>
+                <select name="responsable" id="responsable">
+                    <?php foreach ($responsables as $responsable) { ?>
+                        <option value="<?php echo $responsable['idusuario'];?>">
+                            <?php echo $responsable['nombreYapellido'];?>
+                        </option>
+                    <?php } ?>
+                </select>
             </div>
             <input type="hidden" id="reclamoId" name="reclamoId">
             <button type="submit">Guardar Cambios</button>
