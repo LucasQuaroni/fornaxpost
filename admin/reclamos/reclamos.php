@@ -41,7 +41,7 @@ if ($conn->connect_error) {
     <div class="table-container">
         <h1>Reclamos</h1>
         <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Buscar por DNI o Estado" >
+            <input type="text" id="searchInput" placeholder="Buscar por DNI o Estado">
             <button class='boton' onclick="buscarReclamos()">Buscar</button>
         </div>
         <table>
@@ -70,7 +70,66 @@ if ($conn->connect_error) {
         <div class="modal-content">
         </div>
     </div>
+    <?php include 'modal.php'; ?>
     <script>
+        // JavaScript para abrir el modal al hacer clic en el botón "Actualizar"
+        // JavaScript para abrir el modal al hacer clic en el botón "Actualizar"
+        function actualizarReclamo(reclamoId, dni, fecha, serial, descripcion, estado, responsable) {
+            // Abrir el modal de actualización
+            const modalActualizar = document.getElementById('modal-actualizar');
+            modalActualizar.style.display = 'block';
+
+            // Asignar el ID del reclamo al campo oculto en el formulario
+            document.getElementById('reclamoId').value = reclamoId;
+
+            // Rellenar los campos con los datos existentes del reclamo
+            document.getElementById('dni').value = dni;
+            document.getElementById('fecha').value = fecha;
+            document.getElementById('serial').value = serial;
+            document.getElementById('descripcion').value = descripcion;
+
+            // En el campo "estado," selecciona la opción correspondiente
+            const estadoSelect = document.getElementById('estado');
+            for (let option of estadoSelect.options) {
+                if (option.value === estado) {
+                    option.selected = true;
+                    break;
+                }
+            }
+
+            // En el campo "responsable," selecciona la opción correspondiente
+            const responsableSelect = document.getElementById('responsable');
+            for (let option of responsableSelect.options) {
+                if (option.value === responsable) {
+                    option.selected = true;
+                    break;
+                }
+            }
+        }
+
+
+        function almacenarReclamo() {
+            const form = document.getElementById('formulario-actualizar');
+            const formData = new FormData(form);
+
+            fetch('guardar_reclamo.php', {
+                method: 'POST',
+                body: formData,
+            })
+                .then(response => response.text())
+                .then(data => {
+                    console.log(data);
+                })
+                .catch(error => {
+                    // Manejar errores de la solicitud AJAX
+                    console.error('Error al almacenar el reclamo:', error);
+                });
+
+            // Cierra el modal después de enviar el formulario
+            const modalActualizar = document.getElementById('modal-actualizar');
+            modalActualizar.style.display = 'none';
+        }
+
         function buscarReclamos() {
             const searchValue = document.getElementById('searchInput').value.toLowerCase();
             const filas = document.querySelectorAll('#reclamosTable tr');
@@ -83,29 +142,6 @@ if ($conn->connect_error) {
                     fila.style.display = 'none';
                 }
             });
-        }
-
-        function actualizarReclamo(idReclamo) {
-            const idEstado = document.getElementById(`idestado_${idReclamo}`).value;
-            if (!idEstado) {
-                alert('Por favor, complete el campo de Estado.');
-                return;
-            }
-            const form = document.createElement('form');
-            form.method = 'POST';
-            form.action = 'actualizar_reclamos.php';
-            const idEstadoInput = document.createElement('input');
-            idEstadoInput.type = 'hidden';
-            idEstadoInput.name = 'idestado';
-            idEstadoInput.value = idEstado;
-            const reclamoIdInput = document.createElement('input');
-            reclamoIdInput.type = 'hidden';
-            reclamoIdInput.name = 'reclamo_id';
-            reclamoIdInput.value = idReclamo;
-            form.appendChild(idEstadoInput);
-            form.appendChild(reclamoIdInput);
-            document.body.appendChild(form);
-            form.submit();
         }
 
         // JavaScript para abrir el modal al hacer clic en un DNI de cliente
