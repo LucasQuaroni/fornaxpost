@@ -64,7 +64,7 @@ if ($conn->connect_error) {
   </div>
   <?php include 'modal.php'; ?>
   <script>
-    function buscarFletes() {
+    function buscarServicios() {
       const searchValue = document.getElementById('searchInput').value.toLowerCase();
       const filas = document.querySelectorAll('#reclamosTable tr');
       filas.forEach(function (fila) {
