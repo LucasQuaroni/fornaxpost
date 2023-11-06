@@ -34,7 +34,7 @@ if ($conn->connect_error) {
         <a href="../admin.php">Volver</a>
       </div>
       <div class="nav-links">
-        <a href="../../reclamos/cliente.php">Alta manual</a>
+        <a id="abrirModal">Alta manual</a>
       </div>
     </nav>
   </div>
@@ -62,6 +62,7 @@ if ($conn->connect_error) {
       </tbody>
     </table>
   </div>
+  <?php include 'modal.php'; ?>
   <script>
     function buscarFletes() {
       const searchValue = document.getElementById('searchInput').value.toLowerCase();
@@ -76,6 +77,25 @@ if ($conn->connect_error) {
         }
       });
     }
+
+    const modal = document.getElementById("miModal");
+    const abrirModal = document.getElementById("abrirModal");
+    const cerrarModal = document.getElementById("cerrarModal");
+
+    abrirModal.addEventListener("click", function () {
+      modal.style.display = "flex";
+    });
+
+    cerrarModal.addEventListener("click", function () {
+      modal.style.display = "none";
+    });
+
+    // Agregar un evento clic al fondo transparente del modal
+    window.addEventListener("click", function (event) {
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    });
   </script>
 </body>
 
