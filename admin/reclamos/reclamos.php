@@ -72,7 +72,7 @@ if ($conn->connect_error) {
     </div>
     <?php include 'modal.php'; ?>
     <script>
-        // JavaScript para abrir el modal al hacer clic en el botón "Actualizar"
+                // JavaScript para abrir el modal al hacer clic en el botón "Actualizar"
         function actualizarReclamo(reclamoId) {
             // Obtener la fila de la tabla correspondiente al reclamo
             const filaReclamo = document.querySelector(`#reclamosTable tr[data-id="${reclamoId}"]`);
@@ -101,7 +101,7 @@ if ($conn->connect_error) {
                 return (
                     (responsable['rol'] === 'C' && ['RETPEN', 'ENVPEN'].includes(estadoActual)) ||
                     (responsable['rol'] === 'T' && ['VISPEN', 'REPPEN'].includes(estadoActual)) ||
-                    (responsable['rol'] === 'A' && ['FIN','CAN','PEN', 'REVPEN', 'RETIMP', 'ENFAB', 'COCINS', 'COCLIS', 'ENVIMP'].includes(estadoActual))
+                    (responsable['rol'] === 'A' && ['FIN', 'CAN', 'PEN', 'REVPEN', 'RETIMP', 'ENFAB', 'COCINS', 'COCLIS', 'ENVIMP'].includes(estadoActual))
                 );
             });
 
