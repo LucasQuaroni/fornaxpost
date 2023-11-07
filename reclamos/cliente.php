@@ -16,7 +16,7 @@ if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] = true) {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Registro de reclamo ONLINE</title>
-  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../estilos.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
