@@ -27,7 +27,7 @@ if ($conn->connect_error) {
 <body>
     <div class="header">
         <div class="logo">
-            <img src="logo-fornax-png.png">
+            <img src="../../resources/logo-fornax-png.png">
         </div>
         <nav class="menu">
             <div class="nav-links">
@@ -52,8 +52,8 @@ if ($conn->connect_error) {
                     <th>Fecha de alta</th>
                     <th>Serial del producto</th>
                     <th>Descripción del reclamo</th>
-                    <th>Responsable</th>
                     <th>Estado</th>
+                    <th>Responsable</th>
                     <th></th>
                 </tr>
             </thead>
@@ -72,66 +72,66 @@ if ($conn->connect_error) {
     </div>
     <?php include 'modal.php'; ?>
     <script>
-         // JavaScript para abrir el modal al hacer clic en el botón "Actualizar"
-    function actualizarReclamo(reclamoId) {
-        // Obtener la fila de la tabla correspondiente al reclamo
-        const filaReclamo = document.querySelector(`#reclamosTable tr[data-id="${reclamoId}"]`);
-        const estadoActual = filaReclamo.getAttribute('data-estado');
+        // JavaScript para abrir el modal al hacer clic en el botón "Actualizar"
+        function actualizarReclamo(reclamoId) {
+            // Obtener la fila de la tabla correspondiente al reclamo
+            const filaReclamo = document.querySelector(`#reclamosTable tr[data-id="${reclamoId}"]`);
+            const estadoActual = filaReclamo.getAttribute('data-estado');
 
-        // Llenar los campos del modal con los datos obtenidos
-        document.getElementById('reclamoId').value = reclamoId;
-        document.getElementById('dni').value = filaReclamo.getAttribute('data-dni');
-        document.getElementById('fecha').value = filaReclamo.getAttribute('data-fecha');
-        document.getElementById('serial').value = filaReclamo.getAttribute('data-serial');
-        document.getElementById('descripcion').value = filaReclamo.getAttribute('data-descripcion');
-        document.getElementById('estado').value = estadoActual;
+            // Llenar los campos del modal con los datos obtenidos
+            document.getElementById('reclamoId').value = reclamoId;
+            document.getElementById('dni').value = filaReclamo.getAttribute('data-dni');
+            document.getElementById('fecha').value = filaReclamo.getAttribute('data-fecha');
+            document.getElementById('serial').value = filaReclamo.getAttribute('data-serial');
+            document.getElementById('descripcion').value = filaReclamo.getAttribute('data-descripcion');
+            document.getElementById('estado').value = estadoActual;
 
-        // Filtrar y cargar los responsables disponibles para el estado actual
-        cargarResponsables(estadoActual, filaReclamo.getAttribute('data-responsable'));
+            // Filtrar y cargar los responsables disponibles para el estado actual
+            cargarResponsables(estadoActual, filaReclamo.getAttribute('data-responsable'));
 
-        // Abrir el modal de actualización
-        const modalActualizar = document.getElementById('modal-actualizar');
-        modalActualizar.style.display = 'block';
-    }
+            // Abrir el modal de actualización
+            const modalActualizar = document.getElementById('modal-actualizar');
+            modalActualizar.style.display = 'block';
+        }
 
-    // Cargar los responsables disponibles según el estado seleccionado
-    function cargarResponsables(estadoActual, responsableActual) {
-        // Filtra los responsables disponibles según el estado
-        const responsablesFiltrados = responsables.filter((responsable) => {
-            return (
-                (responsable['rol'] === 'C' && ['RETPEN', 'ENVPEN'].includes(estadoActual)) ||
-                (responsable['rol'] === 'T' && ['VISPEN', 'REPPEN'].includes(estadoActual)) ||
-                (responsable['rol'] === 'A' && ['PEN', 'REVPEN', 'RETIMP', 'ENFAB', 'COCINS', 'COCLIS', 'ENVIMP'].includes(estadoActual))
-            );
-        });
+        // Cargar los responsables disponibles según el estado seleccionado
+        function cargarResponsables(estadoActual, responsableActual) {
+            // Filtra los responsables disponibles según el estado
+            const responsablesFiltrados = responsables.filter((responsable) => {
+                return (
+                    (responsable['rol'] === 'C' && ['RETPEN', 'ENVPEN'].includes(estadoActual)) ||
+                    (responsable['rol'] === 'T' && ['VISPEN', 'REPPEN'].includes(estadoActual)) ||
+                    (responsable['rol'] === 'A' && ['FIN','CAN','PEN', 'REVPEN', 'RETIMP', 'ENFAB', 'COCINS', 'COCLIS', 'ENVIMP'].includes(estadoActual))
+                );
+            });
 
-        // Obtén el elemento select de responsables
-        const selectResponsable = document.getElementById('responsable');
+            // Obtén el elemento select de responsables
+            const selectResponsable = document.getElementById('responsable');
 
-        // Limpia las opciones anteriores
-        selectResponsable.innerHTML = '';
+            // Limpia las opciones anteriores
+            selectResponsable.innerHTML = '';
 
-        // Agrega las opciones de responsables filtrados
-        responsablesFiltrados.forEach((responsable) => {
-            const option = document.createElement('option');
-            option.value = responsable['idusuario'];
-            option.text = responsable['nombreYapellido'];
+            // Agrega las opciones de responsables filtrados
+            responsablesFiltrados.forEach((responsable) => {
+                const option = document.createElement('option');
+                option.value = responsable['idusuario'];
+                option.text = responsable['nombreYapellido'];
 
-            // Si el responsable actual coincide con esta opción, selecciónala
-            if (responsable['idusuario'] === responsableActual) {
-                option.selected = true;
-            }
+                // Si el responsable actual coincide con esta opción, selecciónala
+                if (responsable['idusuario'] === responsableActual) {
+                    option.selected = true;
+                }
 
-            selectResponsable.appendChild(option);
-        });
-    }
+                selectResponsable.appendChild(option);
+            });
+        }
 
         function buscarReclamos() {
             const searchValue = document.getElementById('searchInput').value.toLowerCase();
             const filas = document.querySelectorAll('#reclamosTable tr');
             filas.forEach(function (fila) {
                 const columnaDNI = fila.querySelector('td:nth-child(2)').textContent.toLowerCase();
-                const columnaEstado = fila.querySelector('td:nth-child(7)').textContent.toLowerCase();
+                const columnaEstado = fila.querySelector('td:nth-child(6)').textContent.toLowerCase();
                 if (columnaDNI.includes(searchValue) || columnaEstado.includes(searchValue)) {
                     fila.style.display = 'table-row';
                 } else {

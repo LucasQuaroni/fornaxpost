@@ -27,53 +27,11 @@ if ($result->num_rows > 0) {
         $idestado = $row['idestado'];
         $estados = [];
 
-        if ($idestado == 'PEN') {
-            $estados = [
-                'VISPEN',
-                'RETPEN',
-            ];
-        } elseif ($idestado == 'VISPEN') {
-            $estados = [
-                'REVPEN',
-                'FIN',
-            ];
-        } elseif ($idestado == 'REVPEN' || $idestado == 'RETIMP') {
-            $estados = [
-                'CAN',
-                'RETPEN',
-            ];
-        } elseif ($idestado == 'RETPEN') {
-            $estados = [
-                'ENFAB',
-                'RETIMP',
-            ];
-        } elseif ($idestado == 'ENFAB') {
-            $estados = [
-                'REPPEN',
-            ];
-        } elseif ($idestado == 'REPPEN') {
-            $estados = [
-                'COCINS',
-                'COCLIS',
-            ];
-        } elseif ($idestado == 'COCINS' || $idestado == 'ENVIMP') {
-            $estados = [
-                'CAN',
-                'ENVPEN',
-            ];
-        } elseif ($idestado == 'COCLIS') {
-            $estados = [
-                'ENVPEN',
-            ];
-        } elseif ($idestado == 'ENVPEN') {
-            $estados = [
-                'FIN',
-                'ENVIMP',
-            ];
-        } elseif ($idestado == 'FIN' || $idestado == 'CAN') {
-            $estados = [
-                'PEN',
-            ];
+        // Obtener todos los estados posibles sin filtrar
+        $sqlEstados = "SELECT * FROM estados ORDER BY nombre";
+        $resultEstados = $conn->query($sqlEstados);
+        while ($estadoRow = $resultEstados->fetch_assoc()) {
+            $estados[] = $estadoRow;
         }
 
         // Filtrar responsables según el rol y el estado
@@ -88,14 +46,6 @@ if ($result->num_rows > 0) {
             }
         }
 
-        // Ahora obtén los nombres de los estados
-        $sqlEstados = "SELECT * FROM estados WHERE idestado IN ('" . implode("', '", $estados) . "')";
-        $resultEstados = $conn->query($sqlEstados);
-        $estados = [];
-        while ($estadoRow = $resultEstados->fetch_assoc()) {
-            $estados[] = $estadoRow;
-        }
-
         // Agregar la información a las variables globales
         $row['posibles_estados'] = $estados;
         $row['responsables'] = $responsablesFiltrados;
@@ -106,8 +56,8 @@ if ($result->num_rows > 0) {
         echo "<td>" . date('d-m-Y', strtotime($row["fecha"])) . "</td>";
         echo "<td><a class='artefacto-link' data-serial='" . $row["serial"] . "'>" . $row["serial"] . "</a></td>";
         echo "<td>" . $row["descripcion"] . "</td>";
-        echo "<td>" . $row["responsable_rol"] . " - " . $row["responsable_nombre"] . "</td>";
         echo "<td>" . $row["estado"] . "</td>";
+        echo "<td>" . $row["responsable_nombre"] . "</td>";
         echo "<td><button class='boton' onclick='actualizarReclamo(" . $row["id"] . ")'>Actualizar</button></td>";
         echo "</tr>";
     }

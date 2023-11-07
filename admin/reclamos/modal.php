@@ -20,27 +20,26 @@
                 <input type="text" name="descripcion" id="descripcion">
             </div>
             <div class="linea">
-                <p>Estado:</p>
-                <select name="estado" id="estado" onchange="cargarResponsablesPorEstado()">
-                    <?php foreach ($estados as $estado) { ?>
-                        <option value="<?php echo $estado['idestado']; ?>" <?php if ($estado['idestado'] === $row['idestado'])
-                               echo 'selected'; ?>>
-                            <?php echo $estado['nombre']; ?>
-                        </option>
-                    <?php } ?>
-                </select>
-
-            </div>
-
-            <div class="linea">
-                <p>Responsable:</p>
-                <select name="responsable" id="responsable">
-                    <?php foreach ($responsables as $responsable) { ?>
-                        <option value="<?php echo $responsable['idusuario']; ?>">
-                            <?php echo $responsable['nombreYapellido']; ?>
-                        </option>
-                    <?php } ?>
-                </select>
+                <div class="extra">
+                    <p>Estado:</p>
+                    <select name="estado" id="estado" onchange="cargarResponsablesPorEstado()">
+                        <?php foreach ($estados as $estado) { ?>
+                            <option value="<?php echo $estado['idestado']; ?>">
+                                <?php echo $estado['nombre']; ?>
+                            </option>
+                        <?php } ?>
+                    </select>
+                </div>
+                <div class="extra">
+                    <p>Responsable:</p>
+                    <select name="responsable" id="responsable">
+                        <?php foreach ($responsables as $responsable) { ?>
+                            <option value="<?php echo $responsable['idusuario']; ?>">
+                                <?php echo $responsable['nombreYapellido']; ?>
+                            </option>
+                        <?php } ?>
+                    </select>
+                </div>
             </div>
             <input type="hidden" id="reclamoId" name="reclamoId">
             <button type="submit">Guardar Cambios</button>

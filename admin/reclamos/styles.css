@@ -428,6 +428,12 @@ td {
   border-bottom: 1px solid #ddd;
 }
 
+.extra {
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+}
+
 .ordenes {
   display: flex;
   flex-direction: column;
