@@ -15,9 +15,12 @@ $sql = "SELECT r.id, r.dni, r.fecha, r.serial, r.descripcion, r.idestado, r.resp
 $result = $conn->query($sql);
 
 // Consultas para obtener los posibles responsables
-$sqlResponsables = "SELECT * FROM usuarios WHERE rol = 'Responsable'";
+$sqlResponsables = "SELECT idusuario, nombreYapellido, rol FROM usuarios";
 $resultResponsables = $conn->query($sqlResponsables);
 $responsables = [];
+while ($responsableRow = $resultResponsables->fetch_assoc()) {
+    $responsables[] = $responsableRow;
+}
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
@@ -67,6 +70,22 @@ if ($result->num_rows > 0) {
                 'FIN',
                 'ENVIMP',
             ];
+        } elseif ($idestado == 'FIN' || $idestado == 'CAN') {
+            $estados = [
+                'PEN',
+            ];
+        }
+
+        // Filtrar responsables según el rol y el estado
+        $responsablesFiltrados = [];
+        foreach ($responsables as $responsable) {
+            if (
+                ($row['responsable_rol'] === 'C' && in_array($row['idestado'], ['RETPEN', 'ENVPEN'])) ||
+                ($row['responsable_rol'] === 'T' && in_array($row['idestado'], ['VISPEN', 'REPPEN'])) ||
+                ($row['responsable_rol'] === 'A' && in_array($row['idestado'], ['CAN', 'FIN', 'PEN', 'REVPEN', 'RETIMP', 'ENFAB', 'COCINS', 'COCLIS', 'ENVIMP']))
+            ) {
+                $responsablesFiltrados[] = $responsable;
+            }
         }
 
         // Ahora obtén los nombres de los estados
@@ -79,7 +98,7 @@ if ($result->num_rows > 0) {
 
         // Agregar la información a las variables globales
         $row['posibles_estados'] = $estados;
-        $row['responsables'] = $responsables;
+        $row['responsables'] = $responsablesFiltrados;
 
         echo "<tr data-id='" . $row["id"] . "' data-dni='" . $row["dni"] . "' data-fecha='" . $row["fecha"] . "' data-serial='" . $row["serial"] . "' data-descripcion='" . $row["descripcion"] . "' data-estado='" . $row["idestado"] . "' data-responsable='" . $row["responsable"] . "'>";
         echo "<td>" . $row["id"] . "</td>";
@@ -99,7 +118,6 @@ if ($result->num_rows > 0) {
 // Cierra la conexión a la base de datos
 $conn->close();
 ?>
-
 <script>
     var estados = <?php echo json_encode($estados); ?>;
     var responsables = <?php echo json_encode($responsables); ?>;

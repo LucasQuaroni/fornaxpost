@@ -72,53 +72,59 @@ if ($conn->connect_error) {
     </div>
     <?php include 'modal.php'; ?>
     <script>
-        // JavaScript para abrir el modal al hacer clic en el botón "Actualizar"
-        function actualizarReclamo(reclamoId) {
-            // Abrir el modal de actualización
-            const modalActualizar = document.getElementById('modal-actualizar');
-            modalActualizar.style.display = 'block';
+         // JavaScript para abrir el modal al hacer clic en el botón "Actualizar"
+    function actualizarReclamo(reclamoId) {
+        // Obtener la fila de la tabla correspondiente al reclamo
+        const filaReclamo = document.querySelector(`#reclamosTable tr[data-id="${reclamoId}"]`);
+        const estadoActual = filaReclamo.getAttribute('data-estado');
 
-            // Obtener los elementos de celda de la fila del reclamo seleccionado
-            const filaReclamo = document.querySelector(`#reclamosTable tr[data-id="${reclamoId}"]`);
-            const dni = filaReclamo.getAttribute('data-dni');
-            const fecha = filaReclamo.getAttribute('data-fecha');
-            const serial = filaReclamo.getAttribute('data-serial');
-            const descripcion = filaReclamo.getAttribute('data-descripcion');
-            const estado = filaReclamo.getAttribute('data-estado');
-            const responsable = filaReclamo.getAttribute('data-responsable');
+        // Llenar los campos del modal con los datos obtenidos
+        document.getElementById('reclamoId').value = reclamoId;
+        document.getElementById('dni').value = filaReclamo.getAttribute('data-dni');
+        document.getElementById('fecha').value = filaReclamo.getAttribute('data-fecha');
+        document.getElementById('serial').value = filaReclamo.getAttribute('data-serial');
+        document.getElementById('descripcion').value = filaReclamo.getAttribute('data-descripcion');
+        document.getElementById('estado').value = estadoActual;
 
-            // Llenar los campos del modal con los datos obtenidos
-            document.getElementById('reclamoId').value = reclamoId;
-            document.getElementById('dni').value = dni;
-            document.getElementById('fecha').value = fecha;
-            document.getElementById('serial').value = serial;
-            document.getElementById('descripcion').value = descripcion;
-            document.getElementById('estado').value = estado;
-            document.getElementById('responsable').value = responsable;
-        }
+        // Filtrar y cargar los responsables disponibles para el estado actual
+        cargarResponsables(estadoActual, filaReclamo.getAttribute('data-responsable'));
 
+        // Abrir el modal de actualización
+        const modalActualizar = document.getElementById('modal-actualizar');
+        modalActualizar.style.display = 'block';
+    }
 
-        function almacenarReclamo() {
-            const form = document.getElementById('formulario-actualizar');
-            const formData = new FormData(form);
+    // Cargar los responsables disponibles según el estado seleccionado
+    function cargarResponsables(estadoActual, responsableActual) {
+        // Filtra los responsables disponibles según el estado
+        const responsablesFiltrados = responsables.filter((responsable) => {
+            return (
+                (responsable['rol'] === 'C' && ['RETPEN', 'ENVPEN'].includes(estadoActual)) ||
+                (responsable['rol'] === 'T' && ['VISPEN', 'REPPEN'].includes(estadoActual)) ||
+                (responsable['rol'] === 'A' && ['PEN', 'REVPEN', 'RETIMP', 'ENFAB', 'COCINS', 'COCLIS', 'ENVIMP'].includes(estadoActual))
+            );
+        });
 
-            fetch('guardar_reclamo.php', {
-                method: 'POST',
-                body: formData,
-            })
-                .then(response => response.text())
-                .then(data => {
-                    console.log(data);
-                })
-                .catch(error => {
-                    // Manejar errores de la solicitud AJAX
-                    console.error('Error al almacenar el reclamo:', error);
-                });
+        // Obtén el elemento select de responsables
+        const selectResponsable = document.getElementById('responsable');
 
-            // Cierra el modal después de enviar el formulario
-            const modalActualizar = document.getElementById('modal-actualizar');
-            modalActualizar.style.display = 'none';
-        }
+        // Limpia las opciones anteriores
+        selectResponsable.innerHTML = '';
+
+        // Agrega las opciones de responsables filtrados
+        responsablesFiltrados.forEach((responsable) => {
+            const option = document.createElement('option');
+            option.value = responsable['idusuario'];
+            option.text = responsable['nombreYapellido'];
+
+            // Si el responsable actual coincide con esta opción, selecciónala
+            if (responsable['idusuario'] === responsableActual) {
+                option.selected = true;
+            }
+
+            selectResponsable.appendChild(option);
+        });
+    }
 
         function buscarReclamos() {
             const searchValue = document.getElementById('searchInput').value.toLowerCase();

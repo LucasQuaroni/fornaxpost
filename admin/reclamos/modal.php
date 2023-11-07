@@ -21,21 +21,23 @@
             </div>
             <div class="linea">
                 <p>Estado:</p>
-                <select name="estado" id="estado">
+                <select name="estado" id="estado" onchange="cargarResponsablesPorEstado()">
                     <?php foreach ($estados as $estado) { ?>
-                        <option value="<?php echo $estado['idestado']; ?>">
+                        <option value="<?php echo $estado['idestado']; ?>" <?php if ($estado['idestado'] === $row['idestado'])
+                               echo 'selected'; ?>>
                             <?php echo $estado['nombre']; ?>
                         </option>
                     <?php } ?>
                 </select>
+
             </div>
 
             <div class="linea">
                 <p>Responsable:</p>
                 <select name="responsable" id="responsable">
                     <?php foreach ($responsables as $responsable) { ?>
-                        <option value="<?php echo $responsable['idusuario'];?>">
-                            <?php echo $responsable['nombreYapellido'];?>
+                        <option value="<?php echo $responsable['idusuario']; ?>">
+                            <?php echo $responsable['nombreYapellido']; ?>
                         </option>
                     <?php } ?>
                 </select>
@@ -45,3 +47,13 @@
         </form>
     </div>
 </div>
+<script>
+    // JavaScript para cargar responsables según el estado seleccionado
+    function cargarResponsablesPorEstado() {
+        const estadoSelect = document.getElementById('estado');
+        const estadoSeleccionado = estadoSelect.value;
+
+        // Filtra y carga los responsables disponibles para el estado seleccionado
+        cargarResponsables(estadoSeleccionado);
+    }
+</script>
