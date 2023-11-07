@@ -5,15 +5,15 @@
         <form id="formulario-actualizar" method="POST" action="guardar_reclamo.php">
             <div class="linea">
                 <p>DNI del denunciante:</p>
-                <input type="number" name="dni" id="dni">
+                <input type="number" name="dni" id="dni" readonly>
             </div>
             <div class="linea">
                 <p>Fecha de alta:</p>
-                <input type="date" name="fecha" id="fecha">
+                <input type="date" name="fecha" id="fecha" readonly>
             </div>
             <div class="linea">
                 <p>Serial del producto:</p>
-                <input type="text" name="serial" id="serial">
+                <input type="text" name="serial" id="serial" readonly>
             </div>
             <div class="linea">
                 <p>Descripción del reclamo:</p>

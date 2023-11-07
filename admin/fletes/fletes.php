@@ -15,13 +15,13 @@ if (!isset($_SESSION['usuario'])) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin - Fletes</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body>
   <div class="header">
     <div class="logo">
-      <img src="logo-fornax-png.png">
+      <img src="../../resources/logo-fornax-png.png">
     </div>
     <nav class="menu">
       <div class="nav-links">

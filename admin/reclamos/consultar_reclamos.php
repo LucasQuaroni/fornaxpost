@@ -10,7 +10,7 @@ $sql = "SELECT r.id, r.dni, r.fecha, r.serial, r.descripcion, r.idestado, r.resp
         FROM reclamos r
         LEFT JOIN estados e ON r.idestado = e.idestado
         LEFT JOIN usuarios u ON r.responsable = u.idusuario
-        ORDER BY r.id";
+        ORDER BY estado";
 
 $result = $conn->query($sql);
 

@@ -27,7 +27,7 @@ function mostrarBoton($esAdmin)
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reclamo Exitoso!</title>
-  <link rel="stylesheet" href="../estilos.css">
+  <link rel="stylesheet" href="../styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
