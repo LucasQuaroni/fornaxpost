@@ -57,7 +57,30 @@ if (!isset($_SESSION['usuario'])) {
     </table>
   </div>
   <?php include 'modal.php'; ?>
+  <?php include 'modal_modificar.php'; ?>
   <script>
+    var responsables = <?php echo json_encode($resultResponsables->fetch_all(MYSQLI_ASSOC)); ?>;
+
+    function abrirModificarFlete(idFlete) {
+      // Llenar el campo oculto con el ID de la orden de flete a modificar
+      document.getElementById("idFlete").value = idFlete;
+
+      // Obtener los datos de la fila seleccionada
+      const filaSeleccionada = document.querySelector(`#reclamosTable tr[data-idflete="${idFlete}"]`);
+
+      // Rellenar los campos del modal con los datos obtenidos
+      document.getElementById("direccionModificar").value = filaSeleccionada.getAttribute("data-direccion");
+      document.getElementById("descripcionModificar").value = filaSeleccionada.getAttribute("data-descripcion");
+      document.getElementById("tipoModificar").value = filaSeleccionada.getAttribute("data-tipo");
+      document.getElementById("responsableModificar").value = filaSeleccionada.getAttribute("data-responsable");
+      document.getElementById("reclamoModificar").value = filaSeleccionada.getAttribute("data-reclamo");
+      document.getElementById("estadoModificar").value = filaSeleccionada.getAttribute("data-estado");
+
+      // Mostrar el modal de modificación
+      modalModificar.style.display = "flex";
+    }
+
+
     function buscarFletes() {
       const searchValue = document.getElementById('searchInput').value.toLowerCase();
       const filas = document.querySelectorAll('#reclamosTable tr');
@@ -73,24 +96,26 @@ if (!isset($_SESSION['usuario'])) {
     }
 
     const modal = document.getElementById("miModal");
+    const modalModificar = document.getElementById("miModalModificar");
     const abrirModal = document.getElementById("abrirModal");
-    const cerrarModal = document.getElementById("cerrarModal");
 
     abrirModal.addEventListener("click", function () {
       modal.style.display = "flex";
     });
 
-    cerrarModal.addEventListener("click", function () {
-      modal.style.display = "none";
-    });
-
-    // Agregar un evento clic al fondo transparente del modal
+    // Cerrar el modal de alta manual al hacer clic fuera de él
     window.addEventListener("click", function (event) {
       if (event.target === modal) {
         modal.style.display = "none";
       }
     });
 
+    // Cerrar el modal de modificación al hacer clic fuera de él
+    window.addEventListener("click", function (event) {
+      if (event.target === modalModificar) {
+        modalModificar.style.display = "none";
+      }
+    });
   </script>
 </body>
 

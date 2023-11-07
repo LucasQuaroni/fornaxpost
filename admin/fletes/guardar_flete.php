@@ -1,24 +1,34 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $direccion = $_POST["direccion"];
-    $descripcion = $_POST["descripcion"];
-    $tipo = $_POST["tipo"];
-    $responsable = $_POST["responsable"];
-    $reclamo = $_POST["reclamo"];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $idFlete = isset($_POST['idFlete']) ? $_POST['idFlete'] : null;
+    $direccion = $_POST['direccion'];
+    $descripcion = $_POST['descripcion']; // Obtener la descripción del formulario
+    $tipo = $_POST['tipo'];
+    $responsable = $_POST['responsable'];
+    $reclamo = $_POST['reclamo'];
+    $estado = $_POST["estado"];
 
-    // Realiza la inserción en la base de datos
     $conn = new mysqli("localhost", "root", "", "fornaxpost");
+
     if ($conn->connect_error) {
         die("Conexión fallida: " . $conn->connect_error);
     }
 
-    $query = "INSERT INTO fletes (direccion, descripcion, estado, tipo, idchofer, idreclamo) VALUES ('$direccion', '$descripcion', 'asignada', '$tipo', '$responsable', '$reclamo')";
+    if ($idFlete) {
+        // Estás modificando una orden existente
+        $sql = "UPDATE fletes SET direccion='$direccion', descripcion='$descripcion', tipo='$tipo', idchofer='$responsable', idreclamo='$reclamo', estado = '$estado' WHERE idflete='$idFlete'";
+    } else {
+        // Estás creando una nueva orden
+        $sql = "INSERT INTO fletes (direccion, descripcion, tipo, estado, idchofer, idreclamo) VALUES ('$direccion', '$descripcion', '$tipo', 'asignada', '$responsable', '$reclamo')";
+    }
 
-    if ($conn->query($query) === TRUE) {
-        echo "<script>alert('Orden de flete guardada exitosamente'); window.location.href='fletes.php';</script>";
+    if ($conn->query($sql) === TRUE) {
+        // La operación se completó con éxito
+        header("Location: FLETES.PHP");
         exit;
     } else {
-        echo "Error al guardar la orden de flete: " . $conn->error;
+        // Hubo un error
+        echo "Error: " . $sql . "<br>" . $conn->error;
     }
 
     $conn->close();
