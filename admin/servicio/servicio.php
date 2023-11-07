@@ -27,7 +27,7 @@ if ($conn->connect_error) {
 <body>
   <div class="header">
     <div class="logo">
-      <img src="logo-fornax-png.png">
+      <img src="../../resources/logo-fornax-png.png">
     </div>
     <nav class="menu">
       <div class="nav-links">
