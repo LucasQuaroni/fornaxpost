@@ -41,7 +41,7 @@ if ($conn->connect_error) {
   <div class="table-container">
     <h1>Servicios técnicos</h1>
     <div class="search-bar">
-      <input type="text" id="searchInput" placeholder="Buscar por tecnico o estado">
+      <input type="text" id="searchInput" placeholder="Buscar por tecnico, reclamo o estado">
       <button class='boton' onclick="buscarServicios()">Buscar</button>
     </div>
     <table>
@@ -86,7 +86,8 @@ if ($conn->connect_error) {
       filas.forEach(function (fila) {
         const columnaDNI = fila.querySelector('td:nth-child(5)').textContent.toLowerCase();
         const columnaEstado = fila.querySelector('td:nth-child(6)').textContent.toLowerCase();
-        if (columnaDNI.includes(searchValue) || columnaEstado.includes(searchValue)) {
+        const columnaReclamo = fila.querySelector('td:nth-child(7)').textContent.toLowerCase();
+        if (columnaDNI.includes(searchValue) || columnaEstado.includes(searchValue) || columnaReclamo.includes(searchValue)) {
           fila.style.display = 'table-row';
         } else {
           fila.style.display = 'none';
