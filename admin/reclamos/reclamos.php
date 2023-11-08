@@ -72,7 +72,13 @@ if ($conn->connect_error) {
     </div>
     <?php include 'modal.php'; ?>
     <script>
-                // JavaScript para abrir el modal al hacer clic en el botón "Actualizar"
+        // Cuando se abre el modal
+        document.body.classList.add("modal-open");
+
+        // Cuando se cierra el modal
+        document.body.classList.remove("modal-open");
+
+        // JavaScript para abrir el modal al hacer clic en el botón "Actualizar"
         function actualizarReclamo(reclamoId) {
             // Obtener la fila de la tabla correspondiente al reclamo
             const filaReclamo = document.querySelector(`#reclamosTable tr[data-id="${reclamoId}"]`);
