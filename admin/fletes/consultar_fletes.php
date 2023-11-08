@@ -13,7 +13,7 @@ $resultResponsables = $conn->query($queryResponsables);
 $queryReclamos = "SELECT reclamos.id as id, estados.nombre as nombre FROM reclamos INNER JOIN estados ON reclamos.idestado = estados.idestado";
 $resultReclamos = $conn->query($queryReclamos);
 // Realiza una consulta para obtener los reclamos de la base de datos
-$sql = "SELECT fletes.idflete, fletes.tipo, fletes.direccion, fletes.descripcion, fletes.estado, fletes.idchofer, fletes.idreclamo, usuarios.nombreYapellido as responsable FROM fletes INNER JOIN usuarios ON fletes.idchofer = usuarios.idusuario ORDER BY idflete";
+$sql = "SELECT fletes.idflete, fletes.tipo, fletes.direccion, fletes.descripcion, fletes.estado, fletes.idchofer, fletes.idreclamo, usuarios.nombreYapellido as responsable FROM fletes INNER JOIN usuarios ON fletes.idchofer = usuarios.idusuario ORDER BY fletes.estado";
 
 $result = $conn->query($sql);
 

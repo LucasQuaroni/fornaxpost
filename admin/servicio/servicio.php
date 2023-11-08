@@ -63,7 +63,23 @@ if ($conn->connect_error) {
     </table>
   </div>
   <?php include 'modal.php'; ?>
+  <?php include 'modal_modificar.php'; ?>
   <script>
+    function abrirModificarServicio(idserviciotecnico) {
+      document.getElementById('idServicioTecnico').value = idserviciotecnico;
+
+      const filaSeleccionada = document.querySelector(`#reclamosTable tr[data-idserviciotecnico="${idserviciotecnico}"]`);
+
+      document.getElementById("direccionModificar").value = filaSeleccionada.getAttribute("data-direccion");
+      document.getElementById("descripcionModificar").value = filaSeleccionada.getAttribute("data-descripcion");
+      document.getElementById("tipoModificar").value = filaSeleccionada.getAttribute("data-tipo");
+      document.getElementById("responsableModificar").value = filaSeleccionada.getAttribute("data-responsable");
+      document.getElementById("reclamoModificar").value = filaSeleccionada.getAttribute("data-reclamo");
+      document.getElementById("estadoModificar").value = filaSeleccionada.getAttribute("data-estado");
+
+      modalModificar.style.display = "flex";
+    }
+
     function buscarServicios() {
       const searchValue = document.getElementById('searchInput').value.toLowerCase();
       const filas = document.querySelectorAll('#reclamosTable tr');
@@ -79,6 +95,7 @@ if ($conn->connect_error) {
     }
 
     const modal = document.getElementById("miModal");
+    const modalModificar = document.getElementById("miModalModificar");
     const abrirModal = document.getElementById("abrirModal");
     const cerrarModal = document.getElementById("cerrarModal");
 
@@ -94,6 +111,20 @@ if ($conn->connect_error) {
     window.addEventListener("click", function (event) {
       if (event.target === modal) {
         modal.style.display = "none";
+      }
+    });
+
+    // Cerrar el modal de alta manual al hacer clic fuera de él
+    window.addEventListener("click", function (event) {
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    });
+
+    // Cerrar el modal de modificación al hacer clic fuera de él
+    window.addEventListener("click", function (event) {
+      if (event.target === modalModificar) {
+        modalModificar.style.display = "none";
       }
     });
   </script>

@@ -1,11 +1,19 @@
 <div id="miModalModificar" class="modal">
     <div class="modal-content">
         <span class="close" id="cerrarModalModificar">&times;</span>
-        <h2>Modificar Orden de Flete</h2>
-        <form id="formularioOrdenFlete" action="guardar_flete.php" method="POST">
+        <h2>Modificar Orden de Servicio Tecnico</h2>
+        <form id="formularioOrdenServicioTecnico" action="guardar_servicio.php" method="POST">
+            <div class="linea">
+                <p for="tipo">Tipo:</p>
+                <select id="tipoModificar" name="tipo">
+                    <option value="F">En fabrica</option>
+                    <option value="D">A domicilio</option>
+                </select>
+            </div>
+
             <div class="linea">
                 <p for="direccion">Dirección:</p>
-                <input type="text" id="direccionModificar" name="direccion" required>
+                <input type="text" id="direccionModificar" name="direccion">
             </div>
 
             <div class="linea">
@@ -14,10 +22,12 @@
             </div>
 
             <div class="linea">
-                <p for="tipo">Tipo:</p>
-                <select id="tipoModificar" name="tipo">
-                    <option value="R">Retirar</option>
-                    <option value="D">Llevar</option>
+                <p for="estado">Estado:</p>
+                <select id="estadoModificar" name="estado" required>
+                    <option value="1-asignada">Asignada</option>
+                    <option value="2-pendiente">Pendiente</option>
+                    <option value="3-completada">Completada</option>
+                    <option value="4-cancelada">Cancelada</option>
                 </select>
             </div>
 
@@ -35,17 +45,7 @@
                 </select>
             </div>
 
-            <div class="linea">
-                <p for="estado">Estado:</p>
-                <select id="estadoModificar" name="estado" required>
-                    <option value="1-asignada">Asignada</option>
-                    <option value="2-pendiente">Pendiente</option>
-                    <option value="3-completada">Completada</option>
-                    <option value="4-cancelada">Cancelada</option>
-                </select>
-            </div>
-
-            <input type="hidden" id="idFlete" name="idFlete">
+            <input type="hidden" id="idServicioTecnico" name="idServicioTecnico">
             <button type="submit">Guardar Cambios</button>
         </form>
     </div>

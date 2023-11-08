@@ -1,10 +1,12 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $idserviciotecnico = isset($_POST['idServicioTecnico']) ? $_POST['idServicioTecnico'] : null;
     $descripcion = $_POST["descripcion"];
     $tipo = $_POST["tipo"];
     $direccion = $_POST["direccion"];
     $responsable = $_POST["responsable"];
     $reclamo = $_POST["reclamo"];
+    $estado = $_POST["estado"];
 
     // Realiza la inserción en la base de datos
     $conn = new mysqli("localhost", "root", "", "fornaxpost");
@@ -12,14 +14,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Conexión fallida: " . $conn->connect_error);
     }
 
-    $query = "INSERT INTO servicios (direccion, descripcion, estado, tipo, idtecnico, idreclamo) VALUES ('$direccion', '$descripcion', 'asignada', '$tipo', '$responsable', '$reclamo')";
+    if ($idserviciotecnico) {
+        // Estás modificando una orden existente
+        $sql = "UPDATE servicios SET direccion='$direccion', descripcion='$descripcion', tipo='$tipo', idtecnico='$responsable', idreclamo='$reclamo', estado = '$estado' WHERE idserviciotecnico='$idserviciotecnico'";
+    } else {
+        // Estás creando una nueva orden
+        $sql = "INSERT INTO servicios (direccion, descripcion, estado, tipo, idtecnico, idreclamo) VALUES ('$direccion', '$descripcion', '1-asignada', '$tipo', '$responsable', '$reclamo')";
+    }
 
-    if ($conn->query($query) === TRUE) {
-        echo "<script>alert('Orden de flete guardada exitosamente'); window.location.href='servicio.php';</script>";
+    if ($conn->query($sql) === TRUE) {
+        // La operación se completó con éxito
+        header("Location: servicio.PHP");
         exit;
     } else {
-        echo "Error al guardar la orden de flete: " . $conn->error;
+        // Hubo un error
+        echo "Error: " . $sql . "<br>" . $conn->error;
     }
+
 
     $conn->close();
 }

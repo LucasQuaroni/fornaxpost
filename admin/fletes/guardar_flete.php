@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $sql = "UPDATE fletes SET direccion='$direccion', descripcion='$descripcion', tipo='$tipo', idchofer='$responsable', idreclamo='$reclamo', estado = '$estado' WHERE idflete='$idFlete'";
     } else {
         // Estás creando una nueva orden
-        $sql = "INSERT INTO fletes (direccion, descripcion, tipo, estado, idchofer, idreclamo) VALUES ('$direccion', '$descripcion', '$tipo', 'asignada', '$responsable', '$reclamo')";
+        $sql = "INSERT INTO fletes (direccion, descripcion, tipo, estado, idchofer, idreclamo) VALUES ('$direccion', '$descripcion', '$tipo', '1-asignada', '$responsable', '$reclamo')";
     }
 
     if ($conn->query($sql) === TRUE) {
