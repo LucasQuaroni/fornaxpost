@@ -7,7 +7,7 @@ function obtenerOrdenesFleteParaChofer($choferID)
         die("Conexión fallida: " . $conn->connect_error);
     }
 
-    $query = "SELECT idflete, direccion, descripcion, tipo, estado FROM fletes WHERE idchofer = ?";
+    $query = "SELECT reclamos.id as idreclamo, fletes.idflete, fletes.direccion, fletes.descripcion, fletes.tipo, fletes.estado FROM fletes INNER JOIN reclamos ON fletes.idreclamo = reclamos.id WHERE fletes.idchofer = ?";
 
     $stmt = $conn->prepare($query);
     $stmt->bind_param("i", $choferID);
@@ -41,6 +41,8 @@ function generarCuerpoTablaOrdenes($ordenes)
             $cuerpoTabla .= "<td>Llevar</td>";
         }
         $cuerpoTabla .= "<td>" . $orden['estado'] . "</td>";
+        $cuerpoTabla .= "<td><button class='actualizar-orden boton' onclick='abrirModal(" . $orden['idflete'] . ", " . $orden['idreclamo'] . ", \"" . $orden['tipo'] . "\")'>Actualizar</button>
+        </td>";
         $cuerpoTabla .= "</tr>";
     }
 
@@ -48,6 +50,6 @@ function generarCuerpoTablaOrdenes($ordenes)
 }
 
 // Luego, en tu código principal, puedes llamar a esta función pasando el ID del chofer en sesión:
-$choferID = $_SESSION['usuario']; // Esto asume que 'usuario' contiene el ID del chofer.
+$choferID = $_SESSION['idusuario']; // Esto asume que 'idusuario' contiene el ID del chofer.
 $ordenesFlete = obtenerOrdenesFleteParaChofer($choferID);
 ?>
