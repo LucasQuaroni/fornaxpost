@@ -6,10 +6,8 @@ if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 }
 
-// Verifica si el formulario se envió y si se proporcionó el DNI
 if ($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["dni_cliente"]) || isset($_POST["dni-nuevo"]))) {
     $dni_cliente = $_POST["dni_cliente"];
-
     $modelo_artefacto = $_POST["modelo"];
     $numero_serie = $_POST["serial"];
     $en_garantia = isset($_POST["garantia"]) ? 'S' : 'N';
@@ -25,11 +23,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["dni_cliente"]) || iss
         $row = $result->fetch_assoc();
         $id_artefacto = $row["serial"];
 
-        // Actualiza la garantía del artefacto en la base de datos
         $sql_update_garantia = "UPDATE artefactos SET garantia = '$en_garantia' WHERE serial = '$id_artefacto'";
 
         if ($conn->query($sql_update_garantia) === TRUE) {
-            // La garantía del artefacto se ha actualizado con éxito
         } else {
             echo "Error al actualizar la garantía del artefacto: " . $conn->error;
             exit;
@@ -38,7 +34,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["dni_cliente"]) || iss
         // El artefacto no existe, insertarlo en la base de datos
         $sql_insert_artefacto = "INSERT INTO artefactos (serial, modelo, garantia, vendedor) VALUES ('$numero_serie', '$modelo_artefacto', '$en_garantia', '$vendedor')";
         if ($conn->query($sql_insert_artefacto) === TRUE) {
-            // Obtener el id del artefacto recién insertado
             $id_artefacto = $conn->insert_id;
         } else {
             echo "Error al insertar el artefacto: " . $conn->error;
@@ -54,8 +49,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["dni_cliente"]) || iss
                           VALUES ('$dni_cliente', '$fecha_reclamo', '$numero_serie', '$problema_producto', 'PEN', 1)";
 
     if ($conn->query($sql_insert_reclamo) === TRUE) {
-        // Los datos del reclamo se han registrado con éxito en la base de datos
-        // Configurar las variables de sesión
         session_start();
         $_SESSION['dni_cliente'] = $dni_cliente;
         $_SESSION['modelo_artefacto'] = $modelo_artefacto;
@@ -63,7 +56,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["dni_cliente"]) || iss
         $_SESSION['en_garantia'] = $en_garantia;
         $_SESSION['problema_producto'] = $problema_producto;
 
-        // Redirigir a la página de reclamo exitoso
         header("Location: reclamo_exitoso.php");
         exit;
     } else {
@@ -71,6 +63,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["dni_cliente"]) || iss
     }
 }
 
-// Cierra la conexión a la base de datos
 $conn->close();
 ?>

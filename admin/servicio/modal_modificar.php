@@ -34,14 +34,12 @@
             <div class="linea">
                 <p for="responsable">Responsable:</p>
                 <select id="responsableModificar" name="responsable" required>
-                    <!-- Opciones de responsables aquí -->
                 </select>
             </div>
 
             <div class="linea">
                 <p for="reclamo">Reclamo:</p>
                 <select id="reclamoModificar" name="reclamo">
-                    <!-- Opciones de reclamos aquí -->
                 </select>
             </div>
 
@@ -51,12 +49,11 @@
     </div>
 </div>
 <script>
-    // Función para llenar los selects con opciones de responsables y reclamos
+    //llenar los selects con opciones de responsables y reclamos
     function llenarSelects() {
         var selectResponsable = document.getElementById("responsableModificar");
         var selectReclamo = document.getElementById("reclamoModificar");
 
-        // Llenar el select de responsables
         responsables.forEach(function (responsable) {
             var option = document.createElement("option");
             option.value = responsable.idusuario;
@@ -73,6 +70,6 @@
         });
     }
 
-    // Llamar a la función para llenar los selects al cargar la página
+    //llenar los selects al cargar la página
     llenarSelects();
 </script>

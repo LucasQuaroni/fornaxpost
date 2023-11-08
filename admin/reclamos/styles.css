@@ -142,14 +142,13 @@ body {
     0,
     0,
     0.5
-  ); /* Ajusta el valor de alpha para controlar la opacidad del fondo */
+  ); 
   backdrop-filter: blur(
     15px
-  ); /* Ajusta el valor de desenfoque según tu preferencia */
+  ); 
   z-index: 1;
 }
 
-/* Modal con bordes suaves */
 .modal-content {
   background-color: white;
   position: absolute;
@@ -162,14 +161,13 @@ body {
   width: 40%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   text-align: center;
-  z-index: 2; /* Asegura que el modal esté por encima de otros elementos */
+  z-index: 2; 
 }
 
 body.modal-open {
   overflow: hidden;
 }
 
-/* Agrega margen a los párrafos para separar la información */
 .modal-content p {
   margin: 10px 0;
 }

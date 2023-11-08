@@ -7,13 +7,12 @@ if (!isset($_SESSION['usuario'])) {
   exit;
 }
 
-// Incluir el archivo de funciones
 include("funciones.php");
 
-// Obtener el ID del chofer desde la sesión u otras fuentes
+// Obtener el ID del chofer desde la sesión
 $tecnicoID = $_SESSION['idusuario'];
 
-// Llamar a la función para obtener órdenes de flete
+// Llamar a la función para obtener órdenes de servicio tecnico
 $ordenesFlete = obtenerOrdenesServicioParaTecnico($tecnicoID);
 ?>
 <!DOCTYPE html>
@@ -102,9 +101,9 @@ $ordenesFlete = obtenerOrdenesServicioParaTecnico($tecnicoID);
 
       xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
-          // Procesar la respuesta del servidor, si es necesario
+          // Procesar la respuesta del servidor
           var response = xhr.responseText;
-          console.log(response); // Puedes mostrar la respuesta en la consola para depuración
+          console.log(response);
         }
       };
 

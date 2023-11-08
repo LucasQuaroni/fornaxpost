@@ -45,7 +45,6 @@ if (!isset($_SESSION['usuario'])) {
       </div>
     </div>
   </div>
-  <script src="admin-script.js"></script>
 </body>
 
 </html>

@@ -1,14 +1,14 @@
 <?php
-// Inicia o reanuda la sesión
 session_start();
 
-// Comprueba si el administrador está logueado (debes ajustar el nombre de tus variables de sesión)
+// Comprueba si el administrador está logueado
 if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] = true) {
-  $volverLink = "../admin/reclamos/reclamos.php"; // URL del menú de administrador
+  $volverLink = "../admin/reclamos/reclamos.php"; 
 } else {
-  $volverLink = "../index.html"; // URL del inicio común
+  $volverLink = "../index.html"; 
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 

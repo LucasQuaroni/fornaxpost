@@ -7,13 +7,11 @@ if (!isset($_SESSION['usuario'])) {
   exit;
 }
 
-// Incluir el archivo de funciones
 include("funciones.php");
 
-// Obtener el ID del chofer desde la sesión u otras fuentes
 $choferID = $_SESSION['idusuario'];
 
-// Llamar a la función para obtener órdenes de flete
+//obtener órdenes de flete
 $ordenesFlete = obtenerOrdenesFleteParaChofer($choferID);
 ?>
 <!DOCTYPE html>
@@ -88,7 +86,6 @@ $ordenesFlete = obtenerOrdenesFleteParaChofer($choferID);
         }
       }
     }
-    // Función para procesar el formulario de actualización
     function procesarFormularioActualizacion() {
       var form = document.getElementById("form-actualizar-orden");
       var ordenId = document.getElementById("orden-id").value;
@@ -102,9 +99,9 @@ $ordenesFlete = obtenerOrdenesFleteParaChofer($choferID);
 
       xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
-          // Procesar la respuesta del servidor, si es necesario
+          // Proceso la respuesta del servidor
           var response = xhr.responseText;
-          console.log(response); // Puedes mostrar la respuesta en la consola para depuración
+          console.log(response);
         }
       };
 

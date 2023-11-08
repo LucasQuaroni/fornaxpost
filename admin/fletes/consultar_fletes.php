@@ -5,14 +5,14 @@ if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 }
 
-// Realiza una consulta para obtener los responsables
 $queryResponsables = "SELECT idusuario, nombreYapellido FROM usuarios WHERE rol = 'C'";
 $resultResponsables = $conn->query($queryResponsables);
 
-// Realiza una consulta para obtener los reclamos
+//consulta para obtener los reclamos
 $queryReclamos = "SELECT reclamos.id as id, estados.nombre as nombre FROM reclamos INNER JOIN estados ON reclamos.idestado = estados.idestado";
 $resultReclamos = $conn->query($queryReclamos);
-// Realiza una consulta para obtener los reclamos de la base de datos
+
+// consulta para obtener los reclamos de la base de datos
 $sql = "SELECT fletes.idflete, fletes.tipo, fletes.direccion, fletes.descripcion, fletes.estado, fletes.idchofer, fletes.idreclamo, usuarios.nombreYapellido as responsable FROM fletes INNER JOIN usuarios ON fletes.idchofer = usuarios.idusuario ORDER BY fletes.estado";
 
 $result = $conn->query($sql);
@@ -38,7 +38,6 @@ if ($result->num_rows > 0) {
     echo "<tr><td colspan='8'>No hay fletes disponibles.</td></tr>";
 }
 
-// Cierra la conexión a la base de datos
 $conn->close();
 ?>
 <script>

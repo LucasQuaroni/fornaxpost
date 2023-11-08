@@ -11,19 +11,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["dni_cliente"]) && isse
     $dni_cliente = $_POST["dni_cliente"];
     $mail_cliente = $_POST["mail_cliente"];
 
-    // Consulta a la base de datos para verificar la existencia del cliente
+    // Consulta la existencia del cliente
     $sql = "SELECT * FROM clientes WHERE dni = '$dni_cliente' OR email = '$mail_cliente'";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
-        // Cliente encontrado en la base de datos
         $row = $result->fetch_assoc();
         $dni_registrado = $row["dni"];
         $mail_registrado = $row["email"];
 
         if ($dni_cliente == $dni_registrado && $mail_cliente == $mail_registrado) {
-            // El DNI y el correo electrónico ingresados coinciden con los registrados
-            // Validar que el cliente no tenga un reclamo pendiente
             $sql = "SELECT * FROM reclamos WHERE dni = '$dni_cliente' AND idestado != 'FIN'";
             $result = $conn->query($sql);
             if ($result->num_rows >= 3) {
@@ -33,7 +30,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["dni_cliente"]) && isse
                 exit();
             } else {
                 // El cliente no tiene un reclamo pendiente
-                // Redirige a la página de reclamos
                 header("Location: reclamo.php?dni=$dni_cliente");
             }
         } else {
@@ -47,6 +43,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["dni_cliente"]) && isse
     }
 }
 
-// Cierra la conexión a la base de datos
 $conn->close();
 ?>

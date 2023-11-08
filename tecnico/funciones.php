@@ -49,7 +49,6 @@ function generarCuerpoTablaOrdenes($ordenes)
     return $cuerpoTabla;
 }
 
-// Luego, en tu código principal, puedes llamar a esta función pasando el ID del chofer en sesión:
-$tecnicoID = $_SESSION['idusuario']; // Esto asume que 'idusuario' contiene el ID del chofer.
+$tecnicoID = $_SESSION['idusuario'];
 $ordenesFlete = obtenerOrdenesServicioParaTecnico($tecnicoID);
 ?>

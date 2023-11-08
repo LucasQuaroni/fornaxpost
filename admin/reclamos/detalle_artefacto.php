@@ -1,11 +1,11 @@
 <?php
 $conn = new mysqli("localhost", "root", "", "fornaxpost");
 
-// Verifica si se proporcionó un número de serie en la URL.
+//verifica si se proporcionó un número de serie en la URL.
 if (isset($_GET['serial'])) {
     $serial = $_GET['serial'];
 
-    // Realiza una consulta para obtener los detalles del artefacto según el número de serie.
+    //consulta para obtener los detalles del artefacto según el número de serie.
     $sql = "SELECT * FROM artefactos WHERE serial = '$serial'";
     $result = $conn->query($sql);
 

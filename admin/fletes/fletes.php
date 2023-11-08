@@ -109,14 +109,14 @@ if ($conn->connect_error) {
       modal.style.display = "flex";
     });
 
-    // Cerrar el modal de alta manual al hacer clic fuera de él
+    // Cerrar el modal de alta manual al hacer clic afuera
     window.addEventListener("click", function (event) {
       if (event.target === modal) {
         modal.style.display = "none";
       }
     });
 
-    // Cerrar el modal de modificación al hacer clic fuera de él
+    // Cerrar el modal de modificación al hacer clic afuera
     window.addEventListener("click", function (event) {
       if (event.target === modalModificar) {
         modalModificar.style.display = "none";

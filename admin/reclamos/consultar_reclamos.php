@@ -5,7 +5,7 @@ if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 }
 
-// Realiza una consulta para obtener los reclamos de la base de datos
+//consulta para obtener los reclamos de la base de datos
 $sql = "SELECT r.id, r.dni, r.fecha, r.serial, r.descripcion, r.idestado, r.responsable, e.idestado, e.nombre AS estado, e.descripcion AS estado_desc, u.nombreYapellido as responsable_nombre, u.rol AS responsable_rol
         FROM reclamos r
         LEFT JOIN estados e ON r.idestado = e.idestado
@@ -14,7 +14,7 @@ $sql = "SELECT r.id, r.dni, r.fecha, r.serial, r.descripcion, r.idestado, r.resp
 
 $result = $conn->query($sql);
 
-// Consultas para obtener los posibles responsables
+//consultas para obtener los posibles responsables
 $sqlResponsables = "SELECT idusuario, nombreYapellido, rol FROM usuarios";
 $resultResponsables = $conn->query($sqlResponsables);
 $responsables = [];
@@ -65,7 +65,6 @@ if ($result->num_rows > 0) {
     echo "<tr><td colspan='8'>No hay reclamos disponibles.</td></tr>";
 }
 
-// Cierra la conexión a la base de datos
 $conn->close();
 ?>
 <script>

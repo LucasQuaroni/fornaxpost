@@ -47,12 +47,11 @@
     </div>
 </div>
 <script>
-    // JavaScript para cargar responsables según el estado seleccionado
+    //cargar responsables según el estado seleccionado
     function cargarResponsablesPorEstado() {
         const estadoSelect = document.getElementById('estado');
         const estadoSeleccionado = estadoSelect.value;
 
-        // Filtra y carga los responsables disponibles para el estado seleccionado
         cargarResponsables(estadoSeleccionado);
     }
 </script>

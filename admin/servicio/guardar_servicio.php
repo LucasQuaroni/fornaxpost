@@ -8,26 +8,24 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $reclamo = $_POST["reclamo"];
     $estado = $_POST["estado"];
 
-    // Realiza la inserción en la base de datos
+    //inserción en la base de datos
     $conn = new mysqli("localhost", "root", "", "fornaxpost");
     if ($conn->connect_error) {
         die("Conexión fallida: " . $conn->connect_error);
     }
 
     if ($idserviciotecnico) {
-        // Estás modificando una orden existente
+        //modificando una orden existente
         $sql = "UPDATE servicios SET direccion='$direccion', descripcion='$descripcion', tipo='$tipo', idtecnico='$responsable', idreclamo='$reclamo', estado = '$estado' WHERE idserviciotecnico='$idserviciotecnico'";
     } else {
-        // Estás creando una nueva orden
+        //creando una nueva orden
         $sql = "INSERT INTO servicios (direccion, descripcion, estado, tipo, idtecnico, idreclamo) VALUES ('$direccion', '$descripcion', '1-asignada', '$tipo', '$responsable', '$reclamo')";
     }
 
     if ($conn->query($sql) === TRUE) {
-        // La operación se completó con éxito
         header("Location: servicio.PHP");
         exit;
     } else {
-        // Hubo un error
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
 

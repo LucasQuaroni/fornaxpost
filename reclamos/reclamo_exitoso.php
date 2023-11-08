@@ -1,6 +1,6 @@
 <?php
-// Iniciar la sesión para acceder a los datos del reclamo
 session_start();
+
 // Verificar si la sesión está iniciada
 if (isset($_SESSION['es_admin']) && $_SESSION['es_admin']) {
   $usuarioEsAdmin = true;
