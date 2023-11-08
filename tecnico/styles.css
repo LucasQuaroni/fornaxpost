@@ -230,6 +230,7 @@ form {
   flex-direction: column;
   align-items: center;
   gap: 2rem;
+  margin-top: 1rem;
 }
 
 form p {
@@ -426,6 +427,14 @@ td {
   padding: 8px 20px; /* Ajusta el tamaño del padding según tus necesidades */
   text-align: left;
   border-bottom: 1px solid #ddd;
+}
+
+.ordenes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 70%;
 }
 
 tbody tr:hover {

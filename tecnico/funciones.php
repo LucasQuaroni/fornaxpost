@@ -7,7 +7,7 @@ function obtenerOrdenesServicioParaTecnico($tecnicoID)
         die("Conexión fallida: " . $conn->connect_error);
     }
 
-    $query = "SELECT idserviciotecnico, tipo, direccion, descripcion, estado FROM servicios WHERE idtecnico = ?";
+    $query = "SELECT reclamos.id as idreclamo, servicios.idserviciotecnico, servicios.direccion, servicios.descripcion, servicios.tipo, servicios.estado FROM servicios INNER JOIN reclamos ON servicios.idreclamo = reclamos.id WHERE servicios.idtecnico = ?";
 
     $stmt = $conn->prepare($query);
     $stmt->bind_param("i", $tecnicoID);
@@ -34,13 +34,15 @@ function generarCuerpoTablaOrdenes($ordenes)
         $cuerpoTabla .= "<tr>";
         $cuerpoTabla .= "<td>" . $orden['idserviciotecnico'] . "</td>";
         if ($orden["tipo"] == 'F') {
-            $cuerpoTabla .= "<td>" . 'En fabrica' . "</td>";
+            $cuerpoTabla .= "<td>En fabrica</td>";
         } elseif ($orden["tipo"] == 'D') {
-            $cuerpoTabla .= "<td>" . 'A domicilio' . "</td>";
+            $cuerpoTabla .= "<td>A domicilio</td>";
         }
         $cuerpoTabla .= "<td>" . $orden['direccion'] . "</td>";
         $cuerpoTabla .= "<td>" . $orden['descripcion'] . "</td>";
         $cuerpoTabla .= "<td>" . $orden['estado'] . "</td>";
+        $cuerpoTabla .= "<td><button class='actualizar-orden boton' onclick='abrirModal(" . $orden['idserviciotecnico'] . ", " . $orden['idreclamo'] . ", \"" . $orden['tipo'] . "\")'>Actualizar</button>
+        </td>";
         $cuerpoTabla .= "</tr>";
     }
 
@@ -48,6 +50,6 @@ function generarCuerpoTablaOrdenes($ordenes)
 }
 
 // Luego, en tu código principal, puedes llamar a esta función pasando el ID del chofer en sesión:
-$tecnicoID = $_SESSION['usuario']; // Esto asume que 'usuario' contiene el ID del chofer.
+$tecnicoID = $_SESSION['idusuario']; // Esto asume que 'idusuario' contiene el ID del chofer.
 $ordenesFlete = obtenerOrdenesServicioParaTecnico($tecnicoID);
 ?>

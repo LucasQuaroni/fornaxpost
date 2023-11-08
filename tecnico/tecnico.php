@@ -53,6 +53,7 @@ $ordenesFlete = obtenerOrdenesServicioParaTecnico($tecnicoID);
             <th>Direccion</th>
             <th>Descripción</th>
             <th>Estado</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -65,7 +66,57 @@ $ordenesFlete = obtenerOrdenesServicioParaTecnico($tecnicoID);
       </table>
     </div>
   </div>
-  <script src="tecnico-script.js"></script>
+  <?php include("modal.php"); ?>
+  <script>
+    function abrirModal(ordenId, reclamoId, tipoOrden) {
+      var modal = document.getElementById("custom-modal");
+      var span = document.getElementById("close-modal");
+      var form = document.getElementById("form-actualizar-orden");
+
+      modal.style.display = "block";
+      document.getElementById("orden-id").value = ordenId;
+      document.getElementById("reclamo-id").value = reclamoId;
+      document.getElementById("tipo-orden").value = tipoOrden;
+
+      span.onclick = function () {
+        modal.style.display = "none";
+      }
+
+      window.onclick = function (event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
+    }
+    // Función para procesar el formulario de actualización
+    function procesarFormularioActualizacion() {
+      var form = document.getElementById("form-actualizar-orden");
+      var ordenId = document.getElementById("orden-id").value;
+      var nuevoEstado = document.getElementById("nuevo-estado").value;
+      var descripcion = document.getElementById("descripcion").value;
+
+      // Realizar una solicitud AJAX para enviar los datos al servidor
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "actualizar_estado_orden.php", true);
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          // Procesar la respuesta del servidor, si es necesario
+          var response = xhr.responseText;
+          console.log(response); // Puedes mostrar la respuesta en la consola para depuración
+        }
+      };
+
+      // Enviar los datos del formulario al servidor
+      var data = "orden_id=" + ordenId + "&nuevo_estado=" + nuevoEstado + "&descripcion=" + descripcion;
+      xhr.send(data);
+
+      // Cerrar el modal después de enviar los datos
+      var modal = document.getElementById("custom-modal");
+      modal.style.display = "none";
+    }
+  </script>
 </body>
 
 </html>
