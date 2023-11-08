@@ -35,7 +35,7 @@ if ($result->num_rows > 0) {
         echo "</tr>";
     }
 } else {
-    echo "<tr><td colspan='8'>No hay reclamos disponibles.</td></tr>";
+    echo "<tr><td colspan='8'>No hay servicios disponibles.</td></tr>";
 }
 
 // Cierra la conexión a la base de datos
