@@ -57,7 +57,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $conn->close();
 
     // Devuelve una respuesta de éxito o error, según sea necesario
-    echo "Actualización exitosa"; // Puedes personalizar el mensaje de acuerdo a tu lógica
+    echo "<script>alert('Actualización exitosa')</script>"; // Puedes personalizar el mensaje de acuerdo a tu lógica
+    echo "<script>window.location.replace('chofer.php')</script>"; // Puedes personalizar la redirección de acuerdo a tu lógica
 } else {
     // Respuesta de error si se intenta acceder a esta página de manera incorrecta
     http_response_code(400);
