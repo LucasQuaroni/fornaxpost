@@ -98,7 +98,7 @@ body {
   cursor: pointer;
   color: #b60000;
 }
-/* Estilo para el modal */
+
 .modal {
   display: none;
   position: fixed;
