@@ -1,19 +1,21 @@
 <?php
 session_start();
 
-$conexion = mysqli_connect("localhost", "root", "", "fornaxpost");
-$usuario = mysqli_real_escape_string($conexion, $_POST['user']);
-$contra = mysqli_real_escape_string($conexion, $_POST['pass']);
+// Incluir el archivo de conexión
+include('../conexion.php');
+
+$usuario = mysqli_real_escape_string($conn, $_POST['user']);
+$contra = mysqli_real_escape_string($conn, $_POST['pass']);
 
 if ($usuario != "" && $contra != "") {
     $consulta = "SELECT * FROM usuarios WHERE usuario='$usuario' AND contra='$contra'";
-    $resultado = mysqli_query($conexion, $consulta);
-    $filas = mysqli_num_rows($resultado);
+    $resultado = $conn->query($consulta);
+    $filas = $resultado->num_rows;
 
     if ($filas > 0) {
         $consulta_rol = "SELECT rol, idusuario FROM usuarios WHERE usuario='$usuario' AND contra='$contra'";
-        $resultado_rol = mysqli_query($conexion, $consulta_rol);
-        $datos_usuario = mysqli_fetch_assoc($resultado_rol);
+        $resultado_rol = $conn->query($consulta_rol);
+        $datos_usuario = $resultado_rol->fetch_assoc();
 
         $rol = $datos_usuario['rol'];
         $idusuario = $datos_usuario['idusuario'];
@@ -45,5 +47,4 @@ if ($usuario != "" && $contra != "") {
     header("Location: ../login/login.php");
     exit;
 }
-
 ?>
