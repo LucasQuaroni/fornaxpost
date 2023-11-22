@@ -8,11 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $reclamo = $_POST['reclamo'];
     $estado = $_POST["estado"];
 
-    $conn = new mysqli("localhost", "root", "", "fornaxpost");
-
-    if ($conn->connect_error) {
-        die("Conexión fallida: " . $conn->connect_error);
-    }
+    include("../../conexion.php");
 
     if ($idFlete) {
         // modificando una orden existente

@@ -1,10 +1,6 @@
 <?php
 
-$conn = new mysqli("localhost", "root", "", "fornaxpost");
-
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
-}
+include("../conexion.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["dni_cliente"]) || isset($_POST["dni-nuevo"]))) {
     $dni_cliente = $_POST["dni_cliente"];

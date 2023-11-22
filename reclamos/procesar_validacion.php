@@ -1,10 +1,6 @@
 <?php
 session_start();
-$conn = new mysqli("localhost", "root", "", "fornaxpost");
-
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
-}
+include("../conexion.php");
 
 // Verifica si el formulario se envió y si se proporcionó un DNI y un correo electrónico
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["dni_cliente"]) && isset($_POST["mail_cliente"])) {

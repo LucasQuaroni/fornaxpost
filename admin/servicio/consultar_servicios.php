@@ -1,9 +1,5 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "fornaxpost");
-
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
-}
+include("../../conexion.php");
 
 //consulta para obtener los responsables
 $queryResponsables = "SELECT idusuario, nombreYapellido FROM usuarios WHERE rol = 'T'";

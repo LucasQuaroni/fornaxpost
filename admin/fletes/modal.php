@@ -25,10 +25,7 @@
                 <p for="responsable">Responsable:</p>
                 <select id="responsable" name="responsable">
                     <?php
-                    $conn = new mysqli("localhost", "root", "", "fornaxpost");
-                    if ($conn->connect_error) {
-                        die("Conexión fallida: " . $conn->connect_error);
-                    }
+                    include("../../conexion.php");
 
                     $queryResponsables = "SELECT idusuario, nombreYapellido FROM usuarios WHERE rol = 'C'";
                     $resultResponsables = $conn->query($queryResponsables);
@@ -48,10 +45,7 @@
                 <p for="reclamo">Reclamo:</p>
                 <select id="reclamo" name="reclamo">
                     <?php
-                    $conn = new mysqli("localhost", "root", "", "fornaxpost");
-                    if ($conn->connect_error) {
-                        die("Conexión fallida: " . $conn->connect_error);
-                    }
+                    include("../../conexion.php");
 
                     $queryReclamos = "SELECT reclamos.id as id, estados.nombre as nombre FROM reclamos INNER JOIN estados ON reclamos.idestado = estados.idestado";
                     $resultReclamos = $conn->query($queryReclamos);

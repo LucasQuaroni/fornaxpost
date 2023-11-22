@@ -1,5 +1,5 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "fornaxpost");
+include("../../conexion.php");
 
 //verifica si se proporcionó un número de serie en la URL.
 if (isset($_GET['serial'])) {

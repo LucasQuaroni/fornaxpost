@@ -5,10 +5,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nuevoResponsable = $_POST["responsable"];
 
     //actualización en la base de datos
-    $conn = new mysqli("localhost", "root", "", "fornaxpost");
-    if ($conn->connect_error) {
-        die("Conexión fallida: " . $conn->connect_error);
-    }
+    include("../../conexion.php");
 
     $reclamoId = $conn->real_escape_string($reclamoId);
     $nuevoEstado = $conn->real_escape_string($nuevoEstado);

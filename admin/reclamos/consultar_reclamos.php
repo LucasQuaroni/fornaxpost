@@ -1,10 +1,5 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "fornaxpost");
-
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
-}
-
+include("../../conexion.php");
 //consulta para obtener los reclamos de la base de datos
 $sql = "SELECT r.id, r.dni, r.fecha, r.serial, r.descripcion, r.idestado, r.responsable, e.idestado, e.nombre AS estado, e.descripcion AS estado_desc, u.nombreYapellido as responsable_nombre, u.rol AS responsable_rol
         FROM reclamos r

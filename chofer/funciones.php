@@ -1,11 +1,7 @@
 <?php
 function obtenerOrdenesFleteParaChofer($choferID)
 {
-    $conn = new mysqli("localhost", "root", "", "fornaxpost");
-
-    if ($conn->connect_error) {
-        die("Conexión fallida: " . $conn->connect_error);
-    }
+    include("../conexion.php");
 
     $query = "SELECT reclamos.id as idreclamo, fletes.idflete, fletes.direccion, fletes.descripcion, fletes.tipo, fletes.estado FROM fletes INNER JOIN reclamos ON fletes.idreclamo = reclamos.id WHERE fletes.idchofer = ?";
 

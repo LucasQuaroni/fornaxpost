@@ -7,11 +7,7 @@ if (!isset($_SESSION['usuario'])) {
     exit;
 }
 
-$conn = new mysqli("localhost", "root", "", "fornaxpost");
-
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
-}
+include("../../conexion.php");
 ?>
 
 <!DOCTYPE html>

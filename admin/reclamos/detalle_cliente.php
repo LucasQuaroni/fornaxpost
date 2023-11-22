@@ -1,5 +1,5 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "fornaxpost");
+include("../../conexion.php");
 
 //verifica si se proporcionó un DNI en la URL.
 if (isset($_GET['dni'])) {

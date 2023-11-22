@@ -23,11 +23,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $reclamoID = $_POST['reclamo_id'];
     $tipoOrden = $_POST['tipo_orden']; 
 
-    $conn = new mysqli("localhost", "root", "", "fornaxpost");
+    include("../conexion.php");
 
-    if ($conn->connect_error) {
-        die("Conexión fallida: " . $conn->connect_error);
-    }
 
     //actualizar el estado y la descripción en la tabla de fletes
     $query = "UPDATE fletes SET estado = ?, descripcion = ? WHERE idflete = ?";

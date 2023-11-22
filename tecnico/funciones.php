@@ -1,11 +1,8 @@
 <?php
 function obtenerOrdenesServicioParaTecnico($tecnicoID)
 {
-    $conn = new mysqli("localhost", "root", "", "fornaxpost");
+    include("../conexion.php");
 
-    if ($conn->connect_error) {
-        die("Conexión fallida: " . $conn->connect_error);
-    }
 
     $query = "SELECT reclamos.id as idreclamo, servicios.idserviciotecnico, servicios.direccion, servicios.descripcion, servicios.tipo, servicios.estado FROM servicios INNER JOIN reclamos ON servicios.idreclamo = reclamos.id WHERE servicios.idtecnico = ?";
 
