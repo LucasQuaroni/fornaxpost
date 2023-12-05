@@ -2,7 +2,7 @@
     <div class="modal-content">
         <span class="close" id="close-modal">&times;</span>
         <h2>Actualizar Estado de la Orden</h2>
-        <form id="form-actualizar-orden" method="post" action="actualizar_estado_orden.php">
+        <form id="form-actualizar-orden" method="post" action="actualizar_estado_orden.php" class="login">
             <div class="form-group">
                 <label for="nuevo-estado">Nuevo Estado:</label>
                 <select id="nuevo-estado" name="nuevo_estado">

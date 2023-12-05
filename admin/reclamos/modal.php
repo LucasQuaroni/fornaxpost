@@ -2,7 +2,7 @@
     <div class="modal-content">
         <span class="close" onclick="cerrarModal('modal-actualizar')">&times;</span>
         <h2>Actualizar Reclamo</h2>
-        <form id="formulario-actualizar" method="POST" action="guardar_reclamo.php">
+        <form id="formulario-actualizar" method="POST" action="guardar_reclamo.php" class="login">
             <div class="linea">
                 <p>DNI del denunciante:</p>
                 <input type="number" name="dni" id="dni" readonly>

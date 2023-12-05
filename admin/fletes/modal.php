@@ -2,7 +2,7 @@
     <div class="modal-content">
         <span class="close" id="cerrarModal">&times;</span>
         <h2>Alta Manual de Orden de Flete</h2>
-        <form id="formularioOrdenFlete" action="guardar_flete.php" method="POST">
+        <form id="formularioOrdenFlete" action="guardar_flete.php" method="POST" class="login">
             <div class="linea">
                 <p for="direccion">Dirección:</p>
                 <input type="text" id="direccion" name="direccion" required>

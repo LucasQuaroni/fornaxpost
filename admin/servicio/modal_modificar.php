@@ -2,7 +2,7 @@
     <div class="modal-content">
         <span class="close" id="cerrarModalModificar">&times;</span>
         <h2>Modificar Orden de Servicio Tecnico</h2>
-        <form id="formularioOrdenServicioTecnico" action="guardar_servicio.php" method="POST">
+        <form id="formularioOrdenServicioTecnico" action="guardar_servicio.php" method="POST" class="login">
             <div class="linea">
                 <p for="tipo">Tipo:</p>
                 <select id="tipoModificar" name="tipo">

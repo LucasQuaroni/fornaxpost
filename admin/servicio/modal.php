@@ -2,7 +2,7 @@
     <div class="modal-content">
         <span class="close" id="cerrarModal">&times;</span>
         <h2>Alta Manual de Orden de Servicio Técnico</h2>
-        <form id="formularioOrdenFlete" action="guardar_servicio.php" method="POST">
+        <form id="formularioOrdenFlete" action="guardar_servicio.php" method="POST" class="login">
             <div class="linea">
                 <p for="descripcion">Descripción:</p>
                 <input type="text" id="descripcion" name="descripcion" required>

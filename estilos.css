@@ -145,14 +145,15 @@ body {
 
 .modal-content {
   background-color: white;
-  margin: 15% auto;
+  margin: auto;
+  margin-top: 2rem;
   padding: 40px;
   border: 1px solid #888;
   border-radius: 10px;
   width: 40%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   text-align: center;
-  height: 85%;
+  height: 90%;
 }
 
 .modal-content p {
