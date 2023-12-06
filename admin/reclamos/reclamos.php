@@ -59,11 +59,11 @@ include("../../conexion.php");
         </table>
     </div>
     <div id="cliente-modal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content-chico">
         </div>
     </div>
     <div id="artefacto-modal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content-chico">
         </div>
     </div>
     <?php include 'modal.php'; ?>
@@ -148,7 +148,7 @@ include("../../conexion.php");
                     .then((response) => response.text())
                     .then((data) => {
                         //actualiza el contenido del modal con los detalles del cliente
-                        const modalContent = clienteModal.querySelector('.modal-content');
+                        const modalContent = clienteModal.querySelector('.modal-content-chico');
                         modalContent.innerHTML = '<span class="close-modal" onclick="cerrarModal(\'cliente-modal\')">&times;</span>' + data;
 
                         clienteModal.style.display = 'block';
@@ -171,7 +171,7 @@ include("../../conexion.php");
                     .then((response) => response.text())
                     .then((data) => {
                         //actualiza el contenido del modal con los detalles del artefacto
-                        const modalContent = artefactoModal.querySelector('.modal-content');
+                        const modalContent = artefactoModal.querySelector('.modal-content-chico');
                         modalContent.innerHTML = '<span class="close-modal" onclick="cerrarModal(\'artefacto-modal\')">&times;</span>' + data;
 
                         artefactoModal.style.display = 'block';
