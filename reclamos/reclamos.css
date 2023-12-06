@@ -14,7 +14,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  overflow-y: scroll; 
+  overflow-y: scroll;
   overflow-x: hidden;
   scrollbar-width: thin;
   scrollbar-color: lightgray #ffffff;
@@ -76,7 +76,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .page-specific {
-  min-height: 100vh; 
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
@@ -219,54 +219,68 @@ select {
   padding: 0.4rem;
 }
 
+.footer-responsive {
+  display: none;
+}
+
 @media screen and (max-width: 850px) {
-  .formulario {
+  .header {
     flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
   }
 
-  h2 {
+  .container {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .down h1 {
     text-align: center;
   }
-
-  .header {
-    padding: 0;
-  }
-  .logo img {
-    width: 12rem;
-  }
-
-  .item-ft {
-    width: 10rem;
-  }
-
-  .footer {
-    padding: 0 2rem;
-    position: relative;
-  }
-  .direccion {
+  .page-specific .footer {
     display: none;
   }
-  .redes {
+
+  .icon-whatsapp {
+    color: black;
+    scale: 1.5;
+  }
+
+  .footer-responsive {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    padding-right: 1.5rem;
+    height: 4rem;
     gap: 1rem;
   }
 
-  body {
-    gap: 2rem;
+  form {
+    width: 100%;
+    padding: 1rem;
   }
 
-  .nav-links {
-    margin-right: 2rem;
-    height: 3rem;
-    width: 12rem;
-    gap: 0.1rem;
-    padding: 0.1rem;
+  form p {
+    width: 100%;
+    text-align: center;
   }
 
-  .nav-links a {
-    font-size: 1rem;
+  input {
+    width: 80%;
   }
 
-  .nav-links a:hover {
-    transform: scale(1.2);
+  textarea {
+    width: 80%;
+  }
+
+  .linea {
+    width: 100%;
+    flex-direction: column;
+    gap: 0.2rem;
+    justify-content: center;
   }
 }
