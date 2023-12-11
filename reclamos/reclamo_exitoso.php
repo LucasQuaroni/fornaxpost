@@ -86,6 +86,7 @@ function mostrarBoton($esAdmin)
     <?php
     mostrarBoton($usuarioEsAdmin);
     ?>
+    <br>
   </div>
 
 </body>

@@ -50,7 +50,7 @@
             </div>
             <div class="linea">
                 <p>¿Está en garantía?</p>
-                <input type="checkbox" name="garantia" />
+                <input type="checkbox" name="garantia" class="check"/>
             </div>
             <div class="linea">
                 <p>Vendedor de su producto:</p>
