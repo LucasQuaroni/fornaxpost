@@ -28,11 +28,7 @@ body {
   width: 20rem;
   height: auto;
   transition: all 0.1s;
-  cursor: pointer;
-}
-
-.logo img:hover {
-  transform: scale(1.05);
+  cursor: not-allowed;
 }
 
 .title {
@@ -365,6 +361,7 @@ button {
   border-radius: 5px;
   transition: all 0.1s;
   background-color: lightgray;
+  cursor: pointer;
 }
 
 button:hover {
@@ -399,6 +396,7 @@ select {
   border-radius: 2px;
   font-size: 16px;
   padding: 0.4rem;
+  cursor: pointer;
 }
 
 .table-container {

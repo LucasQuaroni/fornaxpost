@@ -42,7 +42,7 @@
                 </div>
             </div>
             <input type="hidden" id="reclamoId" name="reclamoId">
-            <button type="submit">Guardar Cambios</button>
+            <button type="submit" class="button">Guardar Cambios</button>
         </form>
     </div>
 </div>

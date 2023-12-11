@@ -44,7 +44,7 @@
             </div>
 
             <input type="hidden" id="idFlete" name="idFlete">
-            <button type="submit">Guardar Cambios</button>
+            <button type="submit" class="button">Guardar Cambios</button>
         </form>
     </div>
 </div>
