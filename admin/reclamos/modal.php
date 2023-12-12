@@ -22,7 +22,7 @@
             <div class="linea">
                 <div class="extra">
                     <p>Estado:</p>
-                    <select name="estado" id="estado" onchange="cargarResponsablesPorEstado()">
+                    <select name="estado" id="estado" onchange="cargarResponsablesPorEstado()" required>
                         <?php foreach ($estados as $estado) { ?>
                             <option value="<?php echo $estado['idestado']; ?>">
                                 <?php echo $estado['nombre']; ?>

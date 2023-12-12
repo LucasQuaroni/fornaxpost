@@ -44,7 +44,7 @@ body {
   padding: 10px 20px;
   text-decoration: none;
   color: black;
-  background-color: lightgray;
+  background-color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -61,28 +61,33 @@ body {
   display: flex;
   align-items: center;
   border-radius: 5px;
-  border: 2px solid #b60000;
   gap: 2rem;
   height: 3rem;
   padding: 0.5rem;
   justify-content: center;
+  background-color: lightgray;
+}
+
+.nav-links:hover {
+  background-color: rgb(186, 39, 39);
 }
 
 .nav-links a {
   text-decoration: none;
   color: black;
   display: inline-block;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  cursor: pointer;
+  font-size: 1.6rem;
+  padding-left: .5rem;
+  padding-right: .5rem;
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
   transition: all 0.1s;
-  cursor: pointer;
-  font-size: 1.6rem;
+
 }
 
 .nav-links a:hover {
-  transform: scale(1.1);
+  color: #cdc5c5;
 }
 
 .cliente-link {
@@ -371,6 +376,7 @@ button {
 
 button:hover {
   background-color: rgb(186, 39, 39);
+  color: #cdc5c5;
 }
 
 #volver {
@@ -486,6 +492,7 @@ tbody tr:hover {
   h1 {
     text-align: center;
   }
+
   .footer {
     display: none;
   }
