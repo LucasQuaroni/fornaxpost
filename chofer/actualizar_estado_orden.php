@@ -45,8 +45,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         actualizarEstadoReclamo($reclamoID, $estadoReclamo, $conn);
     }
     $conn->close();
-
-    echo "<script>alert('Actualización exitosa')</script>";
     echo "<script>window.location.replace('chofer.php')</script>";
 } else {
     http_response_code(400);

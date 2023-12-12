@@ -1,17 +1,16 @@
 <div id="miModalServicio" class="modal">
     <div class="modal-content">
-        <span class="close" id="cerrarModal">&times;</span>
         <h2>Alta Manual de Orden de Servicio Técnico</h2>
-        <form id="formularioOrdenFlete" action="guardar_servicio.php" method="POST" class="login">
+        <form id="formularioOrdenServicio" action="guardar_servicio.php" method="POST" class="login">
             <div class="linea">
                 <p for="descripcion">Descripción:</p>
                 <input type="text" id="descripcion" name="descripcion" required>
             </div>
 
-            
+
             <div class="linea">
                 <p for="tipo">Tipo:</p>
-                <select id="tipo" name="tipo">
+                <select id="tipo" name="tipo" readonly>
                     <option value="F">En fabrica</option>
                     <option value="D">A domicilio</option>
                 </select>
@@ -24,7 +23,7 @@
 
             <div class="linea">
                 <p for="responsable">Responsable:</p>
-                <select id="responsable" name="responsable">
+                <select id="responsable" name="responsable" readonly>
                     <?php
                     include("../../conexion.php");
 
@@ -44,7 +43,7 @@
 
             <div class="linea">
                 <p for="reclamo">Reclamo:</p>
-                <select id="reclamo" name="reclamo">
+                <select id="reclamo" name="reclamo" readonly>
                     <?php
                     include("../../conexion.php");
 
@@ -61,8 +60,28 @@
                     ?>
                 </select>
             </div>
-
+            <input type="hidden" id="reclamoIdServicio" name="reclamoIdServicio">
+            <input type="hidden" id="responsableIdServicio" name="responsableIdServicio">
             <button type="submit">Guardar Orden</button>
         </form>
     </div>
 </div>
+<script>
+    // Script para asignar valores a campos ocultos
+    var reclamoIdServicio = document.getElementById("miModalServicio").getAttribute("data-reclamo-id");
+    var responsableIdServicio = document.getElementById("miModalServicio").getAttribute("data-responsable-id");
+
+    document.getElementById("reclamoIdServicio").value = reclamoIdServicio;
+    document.getElementById("responsableIdServicio").value = responsableIdServicio;
+
+    // Validación dinámica para el tipo según el estado
+    var estadoServicio = "<?php echo $nuevoEstado; ?>";
+
+    if (estadoServicio === 'VISPEN') {
+        // Si el estado es VISPEN, establece el tipo como "A domicilio"
+        document.getElementById("tipo").value = "D";
+    } else if (estadoServicio === 'REPPEN') {
+        // Si el estado es REPPEN, establece el tipo como "En fabrica"
+        document.getElementById("tipo").value = "F";
+    }
+</script>

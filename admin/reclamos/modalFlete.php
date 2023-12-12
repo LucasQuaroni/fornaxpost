@@ -14,7 +14,7 @@
 
             <div class="linea">
                 <p for="tipo">Tipo:</p>
-                <select id="tipo" name="tipo">
+                <select id="tipo" name="tipo" readonly>
                     <option value="R">Retirar</option>
                     <option value="D">Llevar</option>
                 </select>
@@ -22,7 +22,7 @@
 
             <div class="linea">
                 <p for="responsable">Responsable:</p>
-                <select id="responsable" name="responsable">
+                <select id="responsable" name="responsable" readonly>
                     <?php
                     include("../../conexion.php");
 
@@ -42,7 +42,7 @@
 
             <div class="linea">
                 <p for="reclamo">Reclamo:</p>
-                <select id="reclamo" name="reclamo">
+                <select id="reclamo" name="reclamo" readonly>
                     <?php
                     include("../../conexion.php");
 
@@ -59,8 +59,29 @@
                     ?>
                 </select>
             </div>
-
+            <input type="hidden" id="reclamoIdFlete" name="reclamoIdFlete">
+            <input type="hidden" id="responsableIdFlete" name="responsableIdFlete">
             <button type="submit">Guardar Orden</button>
         </form>
     </div>
 </div>
+<script>
+    // Script para asignar valores a campos ocultos
+    var reclamoIdFlete = document.getElementById("miModalFlete").getAttribute("data-reclamo-id");
+    var responsableIdFlete = document.getElementById("miModalFlete").getAttribute("data-responsable-id");
+
+    document.getElementById("reclamoIdFlete").value = reclamoIdFlete;
+    document.getElementById("responsableIdFlete").value = responsableIdFlete;
+
+    // Validación dinámica para el tipo según el estado
+    var estadoFlete = "<?php echo $nuevoEstado; ?>";
+
+    if (estadoFlete === 'RETPEN') {
+        // Si el estado es RETPEN, establece el tipo como "Retirar"
+        document.getElementById("tipo").value = "R";
+    } else if (estadoFlete === 'ENVPEN') {
+        // Si el estado es ENVPEN, establece el tipo como "Llevar"
+        document.getElementById("tipo").value = "D";
+    }
+
+</script>

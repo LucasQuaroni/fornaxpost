@@ -33,16 +33,22 @@
             // Verifica el estado y redirige según corresponda
             if ($nuevoEstado == 'VISPEN' || $nuevoEstado == 'REPPEN') {
                 include("modalServicio.php");
-                // Abre el modal para la orden de servicio
+                // Añade los atributos al modal de servicio
                 echo '<script>
-            document.getElementById("miModalServicio").style.display = "block";
-            </script>';
+                var modalServicio = document.getElementById("miModalServicio");
+                modalServicio.setAttribute("data-reclamo-id", "' . $reclamoId . '");
+                modalServicio.setAttribute("data-responsable-id", "' . $nuevoResponsable . '");
+                modalServicio.style.display = "block";
+              </script>';
             } elseif ($nuevoEstado == 'RETPEN' || $nuevoEstado == 'ENVPEN') {
                 include("modalFlete.php");
-                // Abre el modal para la orden de flete
+                // Añade los atributos al modal de flete
                 echo '<script>
-            document.getElementById("miModalFlete").style.display = "block";
-                  </script>';
+                var modalFlete = document.getElementById("miModalFlete");
+                modalFlete.setAttribute("data-reclamo-id", "' . $reclamoId . '");
+                modalFlete.setAttribute("data-responsable-id", "' . $nuevoResponsable . '");
+                modalFlete.style.display = "block";
+              </script>';
             } else {
                 // Redirige a reclamos.php si no es ninguno de los estados especiales
                 echo "<script>window.location.href='reclamos.php';</script>";
