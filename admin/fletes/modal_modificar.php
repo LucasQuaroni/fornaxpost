@@ -65,9 +65,11 @@
         // Llenar el select de reclamos
         reclamos.forEach(function (reclamo) {
             var option = document.createElement("option");
-            option.value = reclamo.id;
-            option.text = reclamo.id + " - " + reclamo.nombre;
-            selectReclamo.appendChild(option);
+            if (reclamo.nombre == 'C - Envio pendiente' || reclamo.nombre == 'C - Retiro pendiente') {
+                option.value = reclamo.id;
+                option.text = reclamo.id + " - " + reclamo.nombre;
+                selectReclamo.appendChild(option);
+            }
         });
     }
 

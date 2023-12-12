@@ -64,9 +64,11 @@
         // Llenar el select de reclamos
         reclamos.forEach(function (reclamo) {
             var option = document.createElement("option");
-            option.value = reclamo.id;
-            option.text = reclamo.id + " - " + reclamo.nombre;
-            selectReclamo.appendChild(option);
+            if (reclamo.nombre == 'T - Reparacion pendiente' || reclamo.nombre == 'T - Visita pendiente') {
+                option.value = reclamo.id;
+                option.text = reclamo.id + " - " + reclamo.nombre;
+                selectReclamo.appendChild(option);
+            }
         });
     }
 

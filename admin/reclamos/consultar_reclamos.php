@@ -23,7 +23,7 @@ if ($result->num_rows > 0) {
         $estados = [];
 
         // Obtener todos los estados posibles sin filtrar
-        $sqlEstados = "SELECT * FROM estados ORDER BY nombre";
+        $sqlEstados = "SELECT * FROM estados WHERE idestado != 'COCINS' AND idestado != 'COCLIS' AND idestado != 'ENFAB' AND idestado != 'ENVIMP' AND idestado != 'RETIMP' AND idestado != 'REVPEN' AND idestado != 'PEN' ORDER BY nombre";
         $resultEstados = $conn->query($sqlEstados);
         while ($estadoRow = $resultEstados->fetch_assoc()) {
             $estados[] = $estadoRow;

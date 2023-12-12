@@ -47,7 +47,7 @@
                     <?php
                     include("../../conexion.php");
 
-                    $queryReclamos = "SELECT reclamos.id as id, estados.nombre as nombre FROM reclamos INNER JOIN estados ON reclamos.idestado = estados.idestado";
+                    $queryReclamos = "SELECT reclamos.id as id, estados.nombre as nombre FROM reclamos INNER JOIN estados ON reclamos.idestado = estados.idestado WHERE reclamos.idestado = 'RETPEN' OR reclamos.idestado = 'ENVPEN'";
                     $resultReclamos = $conn->query($queryReclamos);
 
                     if ($resultReclamos->num_rows > 0) {

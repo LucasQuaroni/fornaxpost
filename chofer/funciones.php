@@ -3,7 +3,7 @@ function obtenerOrdenesFleteParaChofer($choferID)
 {
     include("../conexion.php");
 
-    $query = "SELECT reclamos.id as idreclamo, fletes.idflete, fletes.direccion, fletes.descripcion, fletes.tipo, fletes.estado FROM fletes INNER JOIN reclamos ON fletes.idreclamo = reclamos.id WHERE fletes.idchofer = ?";
+    $query = "SELECT reclamos.id as idreclamo, fletes.idflete, fletes.direccion, fletes.descripcion, fletes.tipo, fletes.estado FROM fletes INNER JOIN reclamos ON fletes.idreclamo = reclamos.id WHERE fletes.idchofer = ? AND fletes.estado != '4-cancelada' AND fletes.estado != '3-completada'";
 
     $stmt = $conn->prepare($query);
     $stmt->bind_param("i", $choferID);
@@ -45,6 +45,6 @@ function generarCuerpoTablaOrdenes($ordenes)
     return $cuerpoTabla;
 }
 
-$choferID = $_SESSION['idusuario']; 
+$choferID = $_SESSION['idusuario'];
 $ordenesFlete = obtenerOrdenesFleteParaChofer($choferID);
 ?>

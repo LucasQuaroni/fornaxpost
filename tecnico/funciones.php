@@ -4,7 +4,7 @@ function obtenerOrdenesServicioParaTecnico($tecnicoID)
     include("../conexion.php");
 
 
-    $query = "SELECT reclamos.id as idreclamo, servicios.idserviciotecnico, servicios.direccion, servicios.descripcion, servicios.tipo, servicios.estado FROM servicios INNER JOIN reclamos ON servicios.idreclamo = reclamos.id WHERE servicios.idtecnico = ?";
+    $query = "SELECT reclamos.id as idreclamo, servicios.idserviciotecnico, servicios.direccion, servicios.descripcion, servicios.tipo, servicios.estado FROM servicios INNER JOIN reclamos ON servicios.idreclamo = reclamos.id WHERE servicios.idtecnico = ? AND servicios.estado != '4-cancelada' AND servicios.estado != '3-completada'";
 
     $stmt = $conn->prepare($query);
     $stmt->bind_param("i", $tecnicoID);
