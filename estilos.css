@@ -78,12 +78,11 @@ body {
   display: inline-block;
   cursor: pointer;
   font-size: 1.6rem;
-  padding-left: .5rem;
-  padding-right: .5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
   transition: all 0.1s;
-
 }
 
 .nav-links a:hover {
@@ -417,11 +416,54 @@ select {
   text-align: center;
 }
 
+.lineas {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 150%;
+  justify-content: center;
+  font-size: 2rem;
+}
+
+.subt {
+  font-size: 1.5rem;
+  font-weight: bold;
+  width: 20rem;
+}
+
+.estadisticas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 70%;
+}
+
+.fechas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50%;
+  width: 50%;
+  gap: 2rem;
+  margin-left: 2rem;
+}
+
+.tabla {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50%;
+  width: 50%;
+  gap: 2rem;
+  margin-right: 2rem;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
   background-color: white;
   max-height: 100%;
+  border-radius: 10px;
 }
 
 .search-bar {
