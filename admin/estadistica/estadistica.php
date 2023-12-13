@@ -26,6 +26,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $fecha_inicio = $_POST['fecha_inicio'];
     $fecha_fin = $_POST['fecha_fin'];
 
+    // Verificar las fechas
+    if ($fecha_inicio > $fecha_fin) {
+        echo "<script>alert('Las fechas ingresadas son inválidas')</script>";
+        echo "<script>window.location.href = 'estadistica.php';</script>";  
+        exit; 
+    }
 
     $sql_reclamos_totales = "SELECT COUNT(*) as total FROM reclamos WHERE fecha BETWEEN '$fecha_inicio' AND '$fecha_fin'";
 
@@ -46,9 +52,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $row_reclamos_cancelados = mysqli_fetch_assoc($result_reclamos_cancelados);
     $row_reclamos_pendientes = mysqli_fetch_assoc($result_reclamos_pendientes);
 
-    // Calcular porcentaje
-    $porcentaje_finalizados = ($row_reclamos_finalizados['finalizados'] / $row_reclamos_totales['total']) * 100;
-    $porcentaje_cancelados = ($row_reclamos_cancelados['cancelados'] / $row_reclamos_totales['total']) * 100;
+    if ($row_reclamos_totales['total'] > 0) {
+        $porcentaje_finalizados = ($row_reclamos_finalizados['finalizados'] / $row_reclamos_totales['total']) * 100;
+        $porcentaje_cancelados = ($row_reclamos_cancelados['cancelados'] / $row_reclamos_totales['total']) * 100;
+    } else {
+        echo "<script>alert('No se encontraron reclamos en el rango de fechas ingresado')</script>";
+        echo "<script>window.location.href = 'estadistica.php';</script>";  
+        exit;
+    }
 }
 ?>
 
